@@ -10,6 +10,8 @@ This repository implements [{{SPEC_ID}}: {{SPEC_TITLE}}]({{SPEC_URL}}).
 
 The full specification is available in [.github/spec/spec.md](.github/spec/spec.md).
 
+{{EXTENSIONS_SECTION}}
+
 ## Standards
 
 This implementation follows these standards:

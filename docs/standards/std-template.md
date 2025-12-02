@@ -115,6 +115,46 @@ gitignore:
 * **Manual review**: {code review checklist items}
 * **Exceptions process**: {how to request an exception}
 
+## Tooling Integration
+
+{Describe how to integrate this standard into development workflows. Remove this section if not applicable.}
+
+### Linter Configuration
+
+{If this standard can be enforced via linting, provide configuration snippets.}
+
+```json
+{
+  "example": "linter config"
+}
+```
+
+### CI/CD Integration
+
+{If this standard should be checked in CI, describe the setup.}
+
+```yaml
+# Example GitHub Actions step
+- name: Check compliance
+  run: {command}
+```
+
+### IDE Setup
+
+{If there are IDE plugins or settings that help enforce this standard, list them.}
+
+* **VS Code**: {extension or setting}
+* **JetBrains**: {plugin or setting}
+
+## Version History
+
+{Track significant changes to this standard. Remove this section for new standards.}
+
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| 1.0 | {YYYY-MM-DD} | {author} | Initial version |
+| 1.1 | {YYYY-MM-DD} | {author} | {Brief description of changes} |
+
 ## Rationale
 
 {Explain WHY these standards exist. Link to ADRs if applicable.}
