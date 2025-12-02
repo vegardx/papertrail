@@ -1,7 +1,7 @@
 ---
 status: "{draft | review | approved | implemented | deprecated}"
 date: {YYYY-MM-DD when the spec was last updated}
-implements: {ADR-NNNN reference, e.g., ADR-0001}
+implements: {PROP-NNNN reference, e.g., PROP-0001}
 authors: {list of specification authors}
 reviewers: {list of people who reviewed this spec}
 implementations:
@@ -16,11 +16,11 @@ implementations:
 
 {Brief summary of what this specification covers and its purpose. One to two paragraphs maximum.}
 
-## Related ADR
+## Related Proposal
 
-This specification implements [ADR-NNNN: {ADR title}](../decisions/ADR-NNNN-{slug}.md).
+This specification implements [PROP-NNNN: {Proposal title}](../proposals/PROP-NNNN-{slug}.md).
 
-{Optional: Brief explanation of how this spec relates to the ADR decision.}
+{Optional: Brief explanation of how this spec relates to the Proposal.}
 
 ## Goals
 

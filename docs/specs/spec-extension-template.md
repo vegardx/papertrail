@@ -2,7 +2,7 @@
 status: "{draft | review | approved | implemented | deprecated}"
 date: {YYYY-MM-DD when the extension was last updated}
 extends: {SPEC-NNNN reference, e.g., SPEC-0001}
-implements: {ADR-NNNN reference - can be same or different from base spec}
+implements: {PROP-NNNN reference - can be same or different from base spec}
 authors: {list of extension authors}
 reviewers: {list of people who reviewed this extension}
 ---
@@ -13,11 +13,11 @@ reviewers: {list of people who reviewed this extension}
 
 {Brief summary of why this extension exists and what it adds to the base spec. One to two paragraphs maximum.}
 
-## Related ADR
+## Related Proposal
 
-This extension implements [ADR-NNNN: {ADR title}](../decisions/ADR-NNNN-{slug}.md).
+This extension implements [PROP-NNNN: {Proposal title}](../proposals/PROP-NNNN-{slug}.md).
 
-{Explain how this ADR relates to the base spec's ADR, if different.}
+{Explain how this Proposal relates to the base spec's Proposal, if different.}
 
 ## Base Spec
 
