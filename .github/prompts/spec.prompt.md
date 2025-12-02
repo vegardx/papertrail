@@ -52,7 +52,35 @@ First, determine which Proposal this spec will implement:
 2. If not specified, list the existing Proposals in `docs/proposals/` and ask which one to implement
 3. Read the referenced Proposal to understand the context and recommended direction
 
-### Step 2: Understand the Scope
+### Step 2: Check Proposal Status
+
+After reading the Proposal, check its `status` field in the YAML frontmatter.
+
+**If the status is NOT "approved"** (e.g., "draft", "review", "rejected", "superseded"):
+
+Ask the user:
+
+"I notice that **{PROP-NNNN}: {title}** has status **{status}**, not approved.
+
+Would you like to:
+- **A) Approve the Proposal first** - I'll update the status to 'approved' and set today's date, then we'll create the spec
+- **B) Continue anyway** - Create the spec without approving the Proposal (not recommended for production use)"
+
+**If user chooses A (Approve first):**
+1. Update the Proposal file:
+   - Change `status: {current}` to `status: approved`
+   - Update `date:` to today's date (YYYY-MM-DD format)
+2. Confirm: "Proposal {PROP-NNNN} has been approved. Now let's create the specification."
+3. Continue to Step 3
+
+**If user chooses B (Continue anyway):**
+1. Warn: "Proceeding with spec creation for an unapproved Proposal. Note that this spec references a Proposal that hasn't been formally approved."
+2. Continue to Step 3
+
+**If the status IS "approved":**
+Continue to Step 3 without interruption.
+
+### Step 3: Understand the Scope
 
 Ask clarifying questions:
 
@@ -68,7 +96,7 @@ Ask clarifying questions:
    - "Which repository or repositories will implement this spec?"
    - "Are there multiple repos involved (e.g., frontend + backend)?"
 
-### Step 3: Gather Requirements
+### Step 4: Gather Requirements
 
 Guide the user through defining requirements, asking ONE question at a time:
 
@@ -90,7 +118,7 @@ Guide the user through defining requirements, asking ONE question at a time:
 5. **Open Questions** (optional)
    - "Are there any unresolved questions?"
 
-### Step 4: Generate the Spec
+### Step 5: Generate the Spec
 
 Once you have sufficient information:
 
