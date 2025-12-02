@@ -77,6 +77,25 @@ This specification implements [PROP-NNNN: {Proposal title}](../proposals/PROP-NN
 * {Question 1: Unresolved decision or clarification needed}
 * {Question 2}
 
+## Spec Dependencies
+
+{List other specs that this spec depends on or integrates with. These specs may provide APIs, data formats, or services that this implementation will consume. Remove this section if there are no dependencies.}
+
+### SPEC-NNNN: {title}
+
+**Relationship:** {How this spec relates to the referenced spec, e.g., "Consumes the authentication API defined in this spec"}
+
+**Relevant requirements:**
+* {Requirement name from the referenced spec that this implementation depends on}
+* {Another requirement}
+
+### SPEC-NNNN: {another title}
+
+**Relationship:** {Description of the dependency}
+
+**Relevant requirements:**
+* {Requirement name}
+
 ## References
 
 * {Link to related documentation}
