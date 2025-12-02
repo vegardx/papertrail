@@ -1,0 +1,8 @@
+# Contexts - cloned repos from spec dependencies (read-only reference)
+.contexts/
+
+# Plans - Copilot scratchpad for plans, implementation docs, and summaries
+.plans/
+
+# Standards-specific ignores
+{{STANDARDS_GITIGNORE}}
