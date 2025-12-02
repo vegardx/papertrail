@@ -37,6 +37,7 @@ flowchart TB
         SPEC["SPEC-NNNN<br/><i>Requirements (SHALL/MUST)</i>"]
         EXT["SPEC-NNNN-EXT-NNNN<br/><i>Adds/overrides requirements</i>"]
         STD["STD-NNNN<br/><i>Standards & conventions</i>"]
+        SPEC <-->|"extends"| EXT
     end
 
     subgraph bootstrap["/bootstrap"]
@@ -61,7 +62,6 @@ flowchart TB
 
     PROP -->|"implements"| SPEC
     PROP -->|"implements"| EXT
-    SPEC --> EXT
     SPEC --> BOOT
     EXT -.->|"included"| BOOT
     STD -.->|"applies to"| BOOT
