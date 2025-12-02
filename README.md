@@ -20,6 +20,12 @@ A documentation repository for Proposals, technical specifications, and engineer
 │   ├── copilot-instructions.md.template
 │   ├── plan.prompt.md.template
 │   └── implement.prompt.md.template
+├── examples/            # Full conversation examples
+│   ├── 01-basic-flow/
+│   ├── 02-extension-same-proposal/
+│   ├── 03-extension-new-feature/
+│   ├── 04-extension-override/
+│   └── 05-microservices-dependencies/
 └── .github/prompts/     # Copilot slash commands
     ├── propose.prompt.md
     ├── spec.prompt.md
@@ -80,6 +86,121 @@ flowchart TB
 | **Spec** | Defines requirements (SHALL/MUST) for an implementation | References one Proposal, lists implementing repos |
 | **Extension** | Adds or overrides requirements in a base spec | Extends a spec, can implement same or different Proposal |
 | **Standard** | Defines reusable conventions and best practices | Applied to implementations via bootstrap |
+
+## Whaaaat?
+
+So you want to build something. Here's how Papertrail turns ideas into running code.
+
+### The Journey: Idea → Code
+
+```mermaid
+flowchart LR
+    subgraph think["1. Think"]
+        IDEA["💡 Idea"]
+        PROP["📋 Proposal"]
+        IDEA --> PROP
+    end
+
+    subgraph define["2. Define"]
+        SPEC["📐 Spec"]
+        STD["📏 Standards"]
+    end
+
+    subgraph build["3. Build"]
+        REPO["📦 Repository"]
+        ISSUES["🎫 Issues"]
+        CODE["💻 Code"]
+        PR["🔀 PR"]
+    end
+
+    PROP -->|"/spec"| SPEC
+    SPEC -->|"/bootstrap"| REPO
+    STD -.->|"applied"| REPO
+    REPO -->|"/plan"| ISSUES
+    ISSUES -->|"/implement"| CODE
+    CODE --> PR
+```
+
+**Step by step:**
+
+1. **Think**: You have a problem. Write a **Proposal** (`/propose`) to explore it—what's wrong, what could fix it, what's the recommendation?
+
+2. **Define**: Once approved, create a **Spec** (`/spec`) with concrete requirements (SHALL/MUST statements). Standards are kept separate—they define *how* you build (TypeScript conventions, testing requirements), not *what* you build.
+
+3. **Build**: Bootstrap (`/bootstrap`) creates your repo with the spec and applicable standards baked in. Then `/plan` creates issues, and `/implement` guides you through each one.
+
+### Extensions: When Plans Change
+
+Real projects evolve. Extensions let you adapt without rewriting history.
+
+```mermaid
+flowchart TB
+    subgraph original["Original Work"]
+        PROP1["PROP-0001<br/>Runner Infrastructure"]
+        SPEC1["SPEC-0001<br/>Runner Infrastructure"]
+        PROP1 --> SPEC1
+    end
+
+    subgraph ext_same["Extension: Same Proposal"]
+        EXT1["SPEC-0001-EXT-0001<br/>Caching Layer"]
+        NOTE1["Same proposal, more scope<br/><i>'We forgot caching'</i>"]
+    end
+
+    subgraph ext_new["Extension: New Proposal"]
+        PROP2["PROP-0002<br/>Multi-Region Support"]
+        EXT2["SPEC-0001-EXT-0002<br/>Regional Runners"]
+        PROP2 --> EXT2
+        NOTE2["Different proposal, builds on existing<br/><i>'New feature for existing system'</i>"]
+    end
+
+    subgraph ext_override["Extension: Override"]
+        EXT3["SPEC-0001-EXT-0003<br/>Enhanced Monitoring"]
+        NOTE3["Changes a requirement<br/><i>'Compliance needs audit logs'</i>"]
+    end
+
+    SPEC1 --> EXT1
+    SPEC1 --> EXT2
+    SPEC1 --> EXT3
+    PROP1 -.-> EXT1
+```
+
+**Three extension patterns:**
+
+| Pattern | When to Use | Example |
+|---------|-------------|---------|
+| **Same proposal, more scope** | You started implementing and realized something's missing | "SPEC-0001 needs a caching layer we didn't think of" |
+| **Different proposal, new feature** | A new initiative builds on existing infrastructure | "PROP-0002 (multi-region) extends the runner spec" |
+| **Override** | A requirement needs to change | "Monitoring now requires audit logging for compliance" |
+
+### Standards: The How, Not the What
+
+Standards are intentionally decoupled from specs:
+
+- **Specs** define *what* to build (requirements, scenarios, acceptance criteria)
+- **Standards** define *how* to build (language conventions, testing rules, security practices)
+
+During `/bootstrap`, you select which standards apply. During `/implement`, Copilot can auto-detect applicable standards based on the tech stack. This means the same spec can be implemented in different ways for different contexts.
+
+### Microservices: When Specs Depend on Each Other
+
+Building a system with multiple services? Specs can declare dependencies:
+
+```
+SPEC-0001: User Service (exposes user API)
+    └── SPEC-0002: Order Service (depends on User API)
+            └── SPEC-0003: Notification Service (depends on Order events)
+```
+
+When you `/bootstrap` SPEC-0002, the User Service repo gets cloned into `.contexts/` so you can reference its API. The dependency chain ensures services are built in the right order.
+
+### See It In Action
+
+Check out the [examples/](examples/) directory for full conversation transcripts showing:
+- [Basic flow](examples/01-basic-flow/): Proposal → Spec → Bootstrap
+- [Extension (same proposal)](examples/02-extension-same-proposal/): Adding scope mid-implementation
+- [Extension (new feature)](examples/03-extension-new-feature/): New proposal building on existing spec
+- [Extension (override)](examples/04-extension-override/): Changing requirements
+- [Microservices](examples/05-microservices-dependencies/): Multi-service system with API dependencies
 
 ## Copilot Commands
 
