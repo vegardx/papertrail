@@ -50,7 +50,7 @@ When processing templates, replace these placeholders:
 
 1. Find the spec file in `docs/specs/` matching the user's input
 2. Parse the YAML frontmatter to extract:
-   - `implements` - The ADR reference
+   - `implements` - The Proposal reference
    - `implementations` - List of repos with their status
 3. Parse the spec body to extract:
    - Title and Overview

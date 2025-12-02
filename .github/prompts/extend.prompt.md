@@ -20,11 +20,11 @@ Use this template as the authoritative structure for the extension:
 Extensions allow you to:
 - **Add new requirements** to an existing spec without modifying the original
 - **Override existing requirements** when they need to change
-- **Implement a different ADR** that builds on the base spec's decision
+- **Implement a different Proposal** that builds on the base spec's decision
 
 Extensions are useful when:
 - Implementation has already started and you need to add scope
-- A new ADR adds requirements to an existing system
+- A new Proposal adds requirements to an existing system
 - You need to adapt a spec for a specific context
 
 ## Naming Convention
@@ -44,19 +44,19 @@ If the user provided a spec identifier, find it. Otherwise:
 2. Ask: "Which spec do you want to extend?"
 
 Read the base spec to understand:
-- What ADR it implements
+- What Proposal it implements
 - What requirements it contains
 - What implementations it has
 
-### Step 2: Determine the ADR
+### Step 2: Determine the Proposal
 
 Ask the user:
 
-"What ADR does this extension implement?"
-- **Same ADR as base spec** ({ADR-NNNN}: {title})
-- **A different ADR** - which one?
+"What Proposal does this extension implement?"
+- **Same Proposal as base spec** ({PROP-NNNN}: {title})
+- **A different Proposal** - which one?
 
-If different ADR, list available ADRs from `docs/decisions/`.
+If different Proposal, list available Proposals from `docs/proposals/`.
 
 ### Step 3: Determine Extension Type
 
@@ -116,11 +116,11 @@ The final extension must include:
   - status (default: "draft")
   - date
   - extends (base spec reference)
-  - implements (ADR reference)
+  - implements (Proposal reference)
   - authors
   - reviewers
 - Link to the base spec
-- Link to the ADR
+- Link to the Proposal
 - "Added Requirements" section (if adding)
 - "Overridden Requirements" section (if overriding)
   - Each override must include: original summary, reason, new requirement
@@ -133,20 +133,20 @@ The final extension must include:
 
 *[Reads SPEC-0001-runner-infrastructure.md]*
 
-**SPEC-0001: Runner Infrastructure** implements ADR-0001 and has these requirements:
+**SPEC-0001: Runner Infrastructure** implements PROP-0001 and has these requirements:
 1. Auto-Scaling
 2. Security
 3. Monitoring
 
-**What ADR does this extension implement?**
-- A) Same as base: ADR-0001 (Use GARM for GitHub Action Runners)
-- B) A different ADR
+**What Proposal does this extension implement?**
+- A) Same as base: PROP-0001 (Use GARM for GitHub Action Runners)
+- B) A different Proposal
 
-**User:** B - it implements ADR-0003
+**User:** B - it implements PROP-0003
 
-**You:** *[Reads ADR-0003]*
+**You:** *[Reads PROP-0003]*
 
-Got it, this extension will implement ADR-0003: Multi-Region Deployment.
+Got it, this extension will implement PROP-0003: Multi-Region Deployment.
 
 **What do you want to do in this extension?**
 - A) Add new requirements only
@@ -176,7 +176,7 @@ Created: `docs/specs/SPEC-0001-EXT-0001-multi-region.md`
 
 ### Summary
 - **Extends:** SPEC-0001 (Runner Infrastructure)
-- **Implements:** ADR-0003 (Multi-Region Deployment)
+- **Implements:** PROP-0003 (Multi-Region Deployment)
 - **Added Requirements:**
   - Region Selection
   - Cross-Region Failover
