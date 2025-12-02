@@ -1,8 +1,16 @@
 {
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "copilot-api",
+      "description": "The Copilot API endpoint to use, e.g., https://api.githubcopilot.com/mcp (GitHub.com) / https://copilot-api.foobar.ghe.com/mcp (Proxima)",
+      "default": "https://api.githubcopilot.com/mcp"
+    }
+  ],
   "servers": {
     "github": {
       "type": "http",
-      "url": "https://copilot-api.dnb.ghe.com/mcp"
+      "url": "${input:copilot-api}"
     }
   }
 }
