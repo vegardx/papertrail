@@ -15,6 +15,7 @@ A documentation repository for Proposals, technical specifications, and engineer
 │       └── STD-NNNN-*.md
 ├── templates/           # Scaffolding templates for bootstrapped repos
 │   ├── README.md.template
+│   ├── gitignore.template
 │   ├── mcp.json.template
 │   ├── copilot-instructions.md.template
 │   ├── plan.prompt.md.template
@@ -46,6 +47,8 @@ flowchart TB
         SPECFILE[".github/spec/spec.md"]
         EXTFILES[".github/spec/extensions/*.md"]
         STDFILES[".github/standards/*.md"]
+        CONTEXTS[".contexts/<br/><i>Cloned dependency repos</i>"]
+        PLANS[".plans/<br/><i>Copilot scratchpad</i>"]
     end
 
     subgraph plan["/plan"]
@@ -104,6 +107,7 @@ Creates and scaffolds implementing repositories:
 2. **Creates repositories** (internal visibility) if they don't exist
 3. **Scaffolds each repo** with:
    - `README.md` - Links to spec and explains the project
+   - `.gitignore` - Ignores `.contexts/`, `.plans/`, and standard-specific patterns
    - `.vscode/mcp.json` - GitHub MCP server configuration
    - `.github/copilot-instructions.md` - Instructions to read spec/standards
    - `.github/prompts/plan.prompt.md` - The `/plan` command
@@ -133,11 +137,13 @@ Creates GitHub issues from the spec and extensions:
 
 1. **Parses the spec** from `.github/spec/spec.md`
 2. **Parses extensions** from `.github/spec/extensions/`
-3. **Creates tracking issue** for the overall spec
-4. **Creates requirement issues** (base + extension requirements)
-5. **Handles overrides** - closes original, creates replacement issue
-6. **Sets dependencies** using "blocked by" relationships
-7. **Extension-only mode** - can add just extension issues if base already planned
+3. **Clones spec dependencies** into `.contexts/` (shallow clone of main)
+   - If a dependent spec has multiple implementing repos, asks which to clone
+4. **Creates tracking issue** for the overall spec
+5. **Creates requirement issues** (base + extension requirements)
+6. **Handles overrides** - closes original, creates replacement issue
+7. **Sets dependencies** using "blocked by" relationships
+8. **Extension-only mode** - can add just extension issues if base already planned
 
 ### 4. `/implement` (in bootstrapped repo)
 
@@ -170,6 +176,7 @@ Specs define requirements for implementing Proposals using [OpenSpec-style](http
 - SHALL/MUST requirement statements
 - GIVEN/WHEN/THEN scenarios for validation
 - List of implementing repositories
+- Spec Dependencies section for referencing other specs (APIs, services to integrate with)
 
 **Naming convention**: `SPEC-NNNN-short-title.md`
 
@@ -189,8 +196,27 @@ Standards define reusable conventions and best practices using [RFC 2119](https:
 - Repository structure
 - Testing requirements
 - Security practices
+- Optional `gitignore` patterns to add to implementing repos
 
 **Naming convention**: `STD-NNNN-short-title.md`
+
+## Special Directories in Bootstrapped Repos
+
+### `.contexts/` - Read-Only Reference
+
+Contains shallow clones of repositories that implement specs this project depends on (from the "Spec Dependencies" section). Use this to understand APIs, data formats, or services you're integrating with.
+
+**Important:** Never modify files in `.contexts/` - it exists only for reference.
+
+### `.plans/` - Copilot Scratchpad
+
+A workspace for Copilot to create:
+- Implementation plans and notes
+- Design documents
+- Research summaries
+- Any working documents that shouldn't be in git history
+
+Both directories are gitignored automatically.
 
 ## Prerequisites
 
