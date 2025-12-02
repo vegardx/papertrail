@@ -4,6 +4,9 @@ date: {YYYY-MM-DD when the standard was last updated}
 applies-to: "{all | github-actions | libraries | services | infrastructure | ...}"
 authors: {list of standard authors}
 reviewers: {list of people who reviewed this standard}
+gitignore:
+  - "{optional: paths or patterns to add to .gitignore, e.g., node_modules/}"
+  - "{optional: another pattern, e.g., dist/}"
 ---
 
 # {short title describing the standard}
