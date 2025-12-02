@@ -39,53 +39,15 @@ A documentation repository for Proposals, technical specifications, and engineer
 
 ## Document Hierarchy
 
-```mermaid
-flowchart TB
-    subgraph papertrail["This Repository (papertrail)"]
-        PROP["PROP-NNNN<br/><i>Problem exploration & proposed solutions</i>"]
-        SPEC["SPEC-NNNN<br/><i>Requirements (SHALL/MUST)</i>"]
-        EXT["SPEC-NNNN-EXT-NNNN<br/><i>Adds/overrides requirements</i>"]
-        STD["STD-NNNN<br/><i>Standards & conventions</i>"]
-        SPEC <-->|"extends"| EXT
-    end
+Papertrail uses four document types that work together:
 
-    subgraph bootstrap["/bootstrap"]
-        BOOT["Creates repo<br/>Scaffolds files"]
-    end
+**Proposals** (`PROP-NNNN`) explore problems and propose solutions. They capture the "what" and "why" before implementation details. One proposal can lead to multiple specs.
 
-    subgraph impl["Implementing Repository"]
-        SPECFILE[".github/spec/spec.md"]
-        EXTFILES[".github/spec/extensions/*.md"]
-        STDFILES[".github/standards/*.md"]
-        CONTEXTS[".contexts/<br/><i>Cloned dependency repos</i>"]
-        PLANS[".plans/<br/><i>Copilot scratchpad</i>"]
-    end
+**Specs** (`SPEC-NNNN`) define concrete requirements using SHALL/MUST statements with GIVEN/WHEN/THEN scenarios. Each spec implements one proposal and lists the repositories that will implement it.
 
-    subgraph plan["/plan"]
-        PLAN["Creates issues<br/>Sets dependencies"]
-    end
+**Extensions** (`SPEC-NNNN-EXT-MMMM`) add or override requirements in a base spec. They can implement the same proposal (adding forgotten scope) or a different proposal (new feature building on existing infrastructure).
 
-    subgraph implement["/implement"]
-        IMPL["Branch → Code → PR"]
-    end
-
-    PROP -->|"implements"| SPEC
-    PROP -->|"implements"| EXT
-    SPEC --> BOOT
-    EXT -.->|"included"| BOOT
-    STD -.->|"applies to"| BOOT
-    BOOT --> impl
-    impl --> plan
-    plan --> ISSUES["GitHub Issues"]
-    ISSUES --> implement
-```
-
-| Document | Purpose | Relationship |
-|----------|---------|--------------|
-| **Proposal** | Explores a problem and proposes potential solutions | One Proposal can have many Specs |
-| **Spec** | Defines requirements (SHALL/MUST) for an implementation | References one Proposal, lists implementing repos |
-| **Extension** | Adds or overrides requirements in a base spec | Extends a spec, can implement same or different Proposal |
-| **Standard** | Defines reusable conventions and best practices | Applied to implementations via bootstrap |
+**Standards** (`STD-NNNN`) define reusable conventions—how to build, not what to build. They cover things like language versions, testing requirements, and API patterns. Standards are applied during bootstrap and enforced during implementation.
 
 ## Whaaaat?
 
