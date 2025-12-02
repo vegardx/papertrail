@@ -6,6 +6,8 @@ argument-hint: Spec identifier (e.g., "SPEC-0001" or path to spec file)
 tools:
   - codebase
   - file
+  - edit
+  - search
   - githubRepo
 ---
 
@@ -43,18 +45,32 @@ When processing templates, replace these placeholders:
 - `{{SPEC_OVERVIEW}}` - The Overview section from the spec
 - `{{REPO_NAME}}` - The repository name
 - `{{STANDARDS_LIST}}` - Markdown list of applicable standards with links
-- `{{EXTENSIONS_LIST}}` - Markdown list of extensions (if any)
+- `{{EXTENSIONS_SECTION}}` - Full "Extensions" section with list (empty string if no extensions):
+  ```markdown
+  ## Extensions
+
+  This implementation includes the following spec extensions:
+
+  - [SPEC-0001-EXT-0001: Enhanced Monitoring](.github/spec/extensions/SPEC-0001-EXT-0001-enhanced-monitoring.md)
+  ```
 - `{{STANDARDS_GITIGNORE}}` - Aggregated gitignore entries from all applicable standards
 
 ## Your Process
 
-### Step 1: Read and Parse the Spec
+### Step 1: Validate and Read the Spec
 
 1. Find the spec file in `docs/specs/` matching the user's input
-2. Parse the YAML frontmatter to extract:
+2. **Validate the spec exists:**
+   - Search for the file matching `docs/specs/SPEC-NNNN-*.md`
+   - If NOT found, report: "Specification {SPEC-NNNN} does not exist. Available specs are: {list}. Please specify a valid spec identifier."
+   - If found, continue
+3. Parse the YAML frontmatter to extract:
    - `implements` - The Proposal reference
    - `implementations` - List of repos with their status
-3. Parse the spec body to extract:
+4. **Validate the referenced Proposal exists:**
+   - Check that the `implements` Proposal (PROP-NNNN) exists in `docs/proposals/`
+   - If NOT found, warn: "Warning: This spec references {PROP-NNNN} which does not exist. Consider creating the proposal first."
+5. Parse the spec body to extract:
    - Title and Overview
 
 ### Step 2: Find Extensions
@@ -72,15 +88,48 @@ Look for extension files matching `SPEC-{ID}-EXT-*.md` in `docs/specs/`:
 3. For each applicable standard, extract the `gitignore` field from frontmatter (if present)
 4. Aggregate all gitignore entries for use in the `.gitignore` template
 
-### Step 4: For Each Implementing Repository
+### Step 4: Present Summary and Confirm
 
-For each repo in the spec's `implementations` list:
+Before making any changes, present a summary of what will be done:
 
-#### 4a. Check if Repo Exists
+```
+## Bootstrap Summary
+
+**Spec:** SPEC-{id} ({title})
+**Extensions Found:** {count} ({list names})
+**Applicable Standards:** {count} ({list names})
+
+### Repositories to Process
+
+| Repository | Status | Action |
+|------------|--------|--------|
+| {org/repo} | {exists/new} | {Create / Update via PR} |
+
+### Files to Scaffold (for new repos)
+- README.md
+- .gitignore
+- .vscode/mcp.json
+- .github/copilot-instructions.md
+- .github/prompts/implement.prompt.md
+- .github/prompts/plan.prompt.md
+- .github/spec/spec.md
+- .github/spec/extensions/{list if any}
+- .github/standards/{list of standards}
+
+Do you want me to proceed with the bootstrap? (yes/no)
+```
+
+Wait for user confirmation before proceeding. If the user says no, ask what they'd like to change.
+
+### Step 5: For Each Implementing Repository
+
+After user confirms, for each repo in the spec's `implementations` list:
+
+#### 5a. Check if Repo Exists
 
 Use GitHub MCP to check if the repository exists.
 
-#### 4b. If Repo Does NOT Exist
+#### 5b. If Repo Does NOT Exist
 
 1. **Create the repository** using GitHub MCP:
    - Visibility: internal
@@ -120,7 +169,7 @@ Use GitHub MCP to check if the repository exists.
 
 3. **Report success** and instruct user to run `/plan` in the new repo
 
-#### 4c. If Repo ALREADY Exists
+#### 5c. If Repo ALREADY Exists
 
 1. **Check for existing scaffold**:
    - Read `.github/spec/spec.md` if it exists
@@ -138,7 +187,7 @@ Use GitHub MCP to check if the repository exists.
    - If user confirms, create a PR with the updates on a branch `update-spec-{SPEC_ID}`
    - If user declines, skip
 
-### Step 5: Report Summary
+### Step 6: Report Summary
 
 After completing all operations, report:
 
