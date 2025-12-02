@@ -25,7 +25,10 @@ A documentation repository for Proposals, technical specifications, and engineer
     ├── spec.prompt.md
     ├── std.prompt.md
     ├── extend.prompt.md
-    └── bootstrap.prompt.md
+    ├── bootstrap.prompt.md
+    ├── review.prompt.md
+    ├── validate.prompt.md
+    └── status.prompt.md
 ```
 
 ## Document Hierarchy
@@ -82,6 +85,8 @@ flowchart TB
 
 ### In This Repository (papertrail)
 
+#### Document Creation
+
 | Command | Description |
 |---------|-------------|
 | `/propose` | Create a new Proposal to explore a problem and potential solutions |
@@ -89,6 +94,14 @@ flowchart TB
 | `/extend` | Create an extension to add/override requirements in a spec |
 | `/std` | Create an engineering standard |
 | `/bootstrap` | Bootstrap implementing repositories from a spec |
+
+#### Review & Validation
+
+| Command | Description |
+|---------|-------------|
+| `/review` | Review a proposal, spec, or standard against quality checklists with improvement suggestions |
+| `/validate` | Cross-reference validation to check YAML frontmatter, references, naming, and status consistency |
+| `/status` | Display overview table of all documents and their implementation status |
 
 ### In Bootstrapped Repositories
 
@@ -154,6 +167,37 @@ Works through issues systematically:
 3. **Guides implementation** following spec requirements and standards
 4. **Pushes changes** via GitHub MCP
 5. **Creates a draft PR** with detailed description and validation checklist
+
+### 5. `/review` (in papertrail)
+
+Reviews documents against quality checklists:
+
+1. **Identifies document type** (Proposal, Spec, Extension, or Standard)
+2. **Validates structure** against the appropriate template
+3. **Checks content quality** (clarity, completeness, consistency)
+4. **Validates cross-references** to other documents
+5. **Provides actionable suggestions** with severity levels
+6. **Offers to apply changes** or update document status
+
+### 6. `/validate` (in papertrail)
+
+Cross-reference validation across all documents:
+
+1. **Validates YAML frontmatter** (required fields, valid values)
+2. **Checks document references** (specs reference existing proposals, etc.)
+3. **Verifies naming conventions** (PROP-NNNN, SPEC-NNNN, STD-NNNN)
+4. **Detects orphaned documents** (specs without proposals, etc.)
+5. **Checks status consistency** (implementation status matches document status)
+6. **Outputs validation report** with errors, warnings, and info
+
+### 7. `/status` (in papertrail)
+
+Displays overview of all documents:
+
+1. **Lists all documents** with type, ID, title, and status
+2. **Shows implementation tree** (Proposal → Specs → Extensions → Repos)
+3. **Supports filtering** by status or specific document
+4. **Highlights action items** (drafts needing review, blocked implementations)
 
 ## Document Formats
 
