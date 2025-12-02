@@ -329,7 +329,7 @@ HTTP/1.1 200 OK
   - Security review for authentication/authorization
 
 * **Exceptions process**:
-  - Document rationale in ADR
+  - Document rationale in Proposal or PR description
   - Requires @api-guild approval
 
 ## Tooling Integration

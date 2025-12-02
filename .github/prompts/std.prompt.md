@@ -20,7 +20,7 @@ Use this template as the authoritative structure for the standard:
 
 ## Document Hierarchy
 
-- **ADRs** (in `docs/decisions/`) - Capture decisions and rationale
+- **Proposals** (in `docs/proposals/`) - Explore problems and propose solutions
 - **Specs** (in `docs/specs/`) - Define requirements for specific implementations
 - **Standards** (in `docs/standards/`) - Define reusable conventions and best practices
 
@@ -52,7 +52,7 @@ Ask clarifying questions:
 
 3. **Motivation**
    - "Why is this standard needed?"
-   - "Are there related ADRs that inform this standard?"
+   - "Are there related Proposals that inform this standard?"
 
 ### Step 2: Gather Requirements
 

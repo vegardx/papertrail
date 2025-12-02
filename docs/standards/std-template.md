@@ -157,7 +157,7 @@ gitignore:
 
 ## Rationale
 
-{Explain WHY these standards exist. Link to ADRs if applicable.}
+{Explain WHY these standards exist. Link to related Proposals if applicable.}
 
 * {Reason 1}
 * {Reason 2}
@@ -166,4 +166,4 @@ gitignore:
 
 * {Link to related standards}
 * {Link to external style guides or best practices}
-* {Link to related ADRs}
+* {Link to related Proposals}
