@@ -1,0 +1,36 @@
+# Copilot Instructions
+
+This repository implements **{{SPEC_ID}}: {{SPEC_TITLE}}**.
+
+## Before Implementing Any Task
+
+You MUST read and understand:
+
+1. **The Specification**: `.github/spec/spec.md`
+   - Contains the requirements (SHALL/MUST statements)
+   - Contains scenarios (GIVEN/WHEN/THEN) for validation
+
+2. **The Standards**: `.github/standards/`
+   - Contains coding standards and conventions to follow
+   - All implementations MUST comply with these standards
+
+## Implementation Workflow
+
+1. Use `/implement` to find the next issue to work on
+2. Issues are linked to spec requirements
+3. Each issue body contains:
+   - The requirement being implemented
+   - Scenarios to validate the implementation
+4. Create branches, implement, commit, push, and create PRs
+
+## Issue Labels
+
+- `spec:{{SPEC_ID}}` - All issues related to this spec
+- Issues use GitHub's "blocked by" relationship for dependencies
+
+## Validation
+
+Before marking an issue complete, verify:
+- All scenarios in the issue pass
+- Code follows the standards in `.github/standards/`
+- Tests are written for the implementation

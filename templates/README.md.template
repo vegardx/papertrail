@@ -1,0 +1,41 @@
+# {{REPO_NAME}}
+
+This repository implements [{{SPEC_ID}}: {{SPEC_TITLE}}]({{SPEC_URL}}).
+
+## Overview
+
+{{SPEC_OVERVIEW}}
+
+## Specification
+
+The full specification is available in [.github/spec/spec.md](.github/spec/spec.md).
+
+## Standards
+
+This implementation follows these standards:
+
+{{STANDARDS_LIST}}
+
+## Development
+
+### Prerequisites
+
+- VS Code with GitHub Copilot
+- Node.js (for MCP servers)
+
+### Getting Started
+
+1. Open this repository in VS Code
+2. The MCP servers will be configured automatically (see `.vscode/mcp.json`)
+3. Use `/implement` in Copilot Chat to work on issues
+
+### Implementation Workflow
+
+Issues are created from the spec requirements. Use the `/implement` command to:
+
+1. Find the next issue ready for implementation (dependencies resolved)
+2. Create a branch
+3. Implement the changes
+4. Commit, push, and create a draft PR
+
+See [.github/prompts/implement.prompt.md](.github/prompts/implement.prompt.md) for details.
