@@ -54,6 +54,15 @@ Building a multi-service system where the Order Service depends on the User Serv
 - How `.contexts/` provides API references
 - Building services in the right order
 
+### [Standards](standards/)
+
+Example engineering standards that define *how* to build (not *what* to build).
+
+**Includes:**
+- STD-0001: Go Services - language, structure, testing, observability
+- STD-0002: TypeScript Libraries - build setup, testing, publishing
+- STD-0003: API Design - REST conventions, error handling, pagination
+
 ## Document Map
 
 After all examples, you'd have:
@@ -71,7 +80,9 @@ docs/
 │   ├── SPEC-0002-user-service.md              # 05
 │   └── SPEC-0003-order-service.md             # 05
 └── standards/
-    └── STD-0001-go-services.md                # 05
+    ├── STD-0001-go-services.md                # standards
+    ├── STD-0002-typescript-libraries.md       # standards
+    └── STD-0003-api-design.md                 # standards
 ```
 
 ## Reading the Examples
