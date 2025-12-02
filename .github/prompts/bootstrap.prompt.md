@@ -29,6 +29,7 @@ The bootstrap process:
 All templates are in the `templates/` directory:
 - `README.md.template`
 - `mcp.json.template`
+- `gitignore.template`
 - `copilot-instructions.md.template`
 - `implement.prompt.md.template`
 - `plan.prompt.md.template`
@@ -43,6 +44,7 @@ When processing templates, replace these placeholders:
 - `{{REPO_NAME}}` - The repository name
 - `{{STANDARDS_LIST}}` - Markdown list of applicable standards with links
 - `{{EXTENSIONS_LIST}}` - Markdown list of extensions (if any)
+- `{{STANDARDS_GITIGNORE}}` - Aggregated gitignore entries from all applicable standards
 
 ## Your Process
 
@@ -67,6 +69,8 @@ Look for extension files matching `SPEC-{ID}-EXT-*.md` in `docs/specs/`:
 2. Check `docs/standards/` for standards that apply based on:
    - The `applies-to` field in standard frontmatter
    - Explicit references in the spec or extensions
+3. For each applicable standard, extract the `gitignore` field from frontmatter (if present)
+4. Aggregate all gitignore entries for use in the `.gitignore` template
 
 ### Step 4: For Each Implementing Repository
 
@@ -88,6 +92,10 @@ Use GitHub MCP to check if the repository exists.
    **README.md** (from `templates/README.md.template`):
    - Replace all template variables
    - Include extensions list if any exist
+
+   **.gitignore** (from `templates/gitignore.template`):
+   - Replace `{{STANDARDS_GITIGNORE}}` with aggregated gitignore entries from standards
+   - Always includes `.contexts/` and `.plans/` directories
 
    **.vscode/mcp.json** (from `templates/mcp.json.template`):
    - Copy as-is (no variables to replace)
@@ -143,6 +151,7 @@ After completing all operations, report:
 
 ### Files Scaffolded
 - README.md
+- .gitignore
 - .vscode/mcp.json
 - .github/copilot-instructions.md
 - .github/prompts/implement.prompt.md
@@ -200,6 +209,7 @@ Repository `github/runner-infra` does not exist. I'll create it now.
 
 ### Files Scaffolded
 - README.md
+- .gitignore
 - .vscode/mcp.json
 - .github/copilot-instructions.md
 - .github/prompts/implement.prompt.md
