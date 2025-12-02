@@ -15,10 +15,12 @@ You are a bootstrap assistant. Your role is to take a spec and create/update the
 
 The bootstrap process:
 1. Reads a spec from `docs/specs/`
-2. For each implementing repository listed in the spec:
+2. Finds any extensions for that spec (`SPEC-NNNN-EXT-*.md`)
+3. For each implementing repository listed in the spec:
    - Creates the repo if it doesn't exist (internal visibility)
    - Scaffolds with templates from `templates/`
-3. If re-bootstrapping and files changed, creates a PR to update them
+   - Copies spec and any extensions
+4. If re-bootstrapping and files changed, creates a PR to update them
 
 **Note:** Issue creation is handled separately by the `/plan` command in the bootstrapped repository.
 
@@ -40,6 +42,7 @@ When processing templates, replace these placeholders:
 - `{{SPEC_OVERVIEW}}` - The Overview section from the spec
 - `{{REPO_NAME}}` - The repository name
 - `{{STANDARDS_LIST}}` - Markdown list of applicable standards with links
+- `{{EXTENSIONS_LIST}}` - Markdown list of extensions (if any)
 
 ## Your Process
 
@@ -52,22 +55,28 @@ When processing templates, replace these placeholders:
 3. Parse the spec body to extract:
    - Title and Overview
 
-### Step 2: Identify Applicable Standards
+### Step 2: Find Extensions
+
+Look for extension files matching `SPEC-{ID}-EXT-*.md` in `docs/specs/`:
+- Parse each extension's frontmatter (`extends`, `implements`)
+- Note which add requirements and which override
+
+### Step 3: Identify Applicable Standards
 
 1. Read the spec for any standard references
 2. Check `docs/standards/` for standards that apply based on:
    - The `applies-to` field in standard frontmatter
-   - Explicit references in the spec
+   - Explicit references in the spec or extensions
 
-### Step 3: For Each Implementing Repository
+### Step 4: For Each Implementing Repository
 
 For each repo in the spec's `implementations` list:
 
-#### 3a. Check if Repo Exists
+#### 4a. Check if Repo Exists
 
 Use GitHub MCP to check if the repository exists.
 
-#### 3b. If Repo Does NOT Exist
+#### 4b. If Repo Does NOT Exist
 
 1. **Create the repository** using GitHub MCP:
    - Visibility: internal
@@ -78,7 +87,7 @@ Use GitHub MCP to check if the repository exists.
 
    **README.md** (from `templates/README.md.template`):
    - Replace all template variables
-   - For `{{STANDARDS_LIST}}`, create a bullet list linking to each standard
+   - Include extensions list if any exist
 
    **.vscode/mcp.json** (from `templates/mcp.json.template`):
    - Copy as-is (no variables to replace)
@@ -93,22 +102,27 @@ Use GitHub MCP to check if the repository exists.
    - Replace template variables
 
    **.github/spec/spec.md**:
-   - Copy the full spec content
+   - Copy the full base spec content
+
+   **.github/spec/extensions/{SPEC-NNNN-EXT-NNNN-name}.md** (for each extension):
+   - Copy each extension file
 
    **.github/standards/{STD-NNNN-name}.md** (for each applicable standard):
    - Copy each standard file
 
 3. **Report success** and instruct user to run `/plan` in the new repo
 
-#### 3c. If Repo ALREADY Exists
+#### 4c. If Repo ALREADY Exists
 
 1. **Check for existing scaffold**:
    - Read `.github/spec/spec.md` if it exists
+   - Read `.github/spec/extensions/` contents
    - Read `.github/standards/` contents
    - Read other scaffold files
 
 2. **Generate diff**:
    - Compare existing files with what would be generated
+   - Highlight new extensions that would be added
    - Show the user what will change
 
 3. **Ask for confirmation**:
@@ -116,7 +130,7 @@ Use GitHub MCP to check if the repository exists.
    - If user confirms, create a PR with the updates on a branch `update-spec-{SPEC_ID}`
    - If user declines, skip
 
-### Step 4: Report Summary
+### Step 5: Report Summary
 
 After completing all operations, report:
 
@@ -134,6 +148,7 @@ After completing all operations, report:
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md
+- .github/spec/extensions/{list if any}
 - .github/standards/{list of standards}
 
 ### Next Steps
@@ -157,6 +172,11 @@ After completing all operations, report:
 *[Reads docs/specs/SPEC-0001-runner-infrastructure.md]*
 
 Found spec: **SPEC-0001: Runner Infrastructure**
+
+*[Checks for extensions]*
+
+Found extensions:
+- SPEC-0001-EXT-0001: Enhanced Monitoring
 
 Implementing repositories:
 - `github/runner-infra` (status: planned)
@@ -185,10 +205,11 @@ Repository `github/runner-infra` does not exist. I'll create it now.
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md
+- .github/spec/extensions/SPEC-0001-EXT-0001-enhanced-monitoring.md
 - .github/standards/STD-0001-github-actions.md
 - .github/standards/STD-0002-typescript-libraries.md
 
 ### Next Steps
 1. Open `github/runner-infra` in VS Code
-2. Run `/plan` to create issues from the spec
+2. Run `/plan` to create issues from the spec (includes extension)
 3. Use `/implement` to start working on issues
