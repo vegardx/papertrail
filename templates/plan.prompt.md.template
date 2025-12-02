@@ -24,7 +24,8 @@ The plan process:
 1. Reads the base spec from `.github/spec/spec.md`
 2. Reads any extensions from `.github/spec/extensions/`
 3. Reads all standards from `.github/standards/`
-4. Creates (or refreshes) GitHub issues:
+4. Clones spec dependency repos into `.contexts/` (if any)
+5. Creates (or refreshes) GitHub issues:
    - One tracking issue for the spec
    - One issue per requirement (with scenarios for validation)
    - Sub-issues for implementation tasks
@@ -47,7 +48,35 @@ The plan process:
   - `## Added Requirements` section
   - `## Overridden Requirements` section
 
-### Step 2: Check for Existing Issues
+### Step 2: Clone Spec Dependencies
+
+Check the base spec for a `## Spec Dependencies` section. If it exists:
+
+1. **Parse each dependency** - Extract `SPEC-NNNN` identifiers from the section headers
+2. **For each dependent spec:**
+   a. Use GitHub MCP to find the spec file in the papertrail repo
+   b. Read the spec to get its `implementations` list
+   c. If multiple repos implement the spec, ask the user:
+      "Spec **{SPEC-NNNN}: {title}** has multiple implementations:
+      - A) {org/repo-1}
+      - B) {org/repo-2}
+      - C) {org/repo-3}
+
+      Which repository should I clone for context?"
+   d. If only one repo, use it automatically
+3. **Clone the selected repo:**
+   - Create `.contexts/` directory if it doesn't exist
+   - Run: `git clone --depth 1 --branch main {repo_url} .contexts/{repo-name}`
+4. **Report what was cloned:**
+   ```
+   Cloned spec dependencies into .contexts/:
+   - SPEC-0001 → github/auth-service (from github/auth-service)
+   - SPEC-0003 → github/data-api (from github/data-api)
+   ```
+
+**If no Spec Dependencies section exists:** Skip this step.
+
+### Step 3: Check for Existing Issues
 
 Search for issues with label `spec:{{SPEC_ID}}`:
 
@@ -67,7 +96,7 @@ Ask: "Found X existing issues. Do you want to refresh them?"
 **If no issues exist:**
 Proceed to create all issues (base + extensions).
 
-### Step 3: Create/Update Labels
+### Step 4: Create/Update Labels
 
 Ensure these labels exist:
 - `spec:{{SPEC_ID}}` - Color: `#7057ff`
@@ -76,7 +105,7 @@ Ensure these labels exist:
 - `task` - Color: `#1d76db`
 - `override` - Color: `#d93f0b` (for overridden requirements)
 
-### Step 4: Create Tracking Issue
+### Step 5: Create Tracking Issue
 
 **Title:** `[{{SPEC_ID}}] {{SPEC_TITLE}}`
 
@@ -117,7 +146,7 @@ Track implementation progress in the linked requirement issues.
 
 **Labels:** `spec:{{SPEC_ID}}`, `tracking`
 
-### Step 5: Create Requirement Issues
+### Step 6: Create Requirement Issues
 
 #### For Base Spec Requirements
 
@@ -207,20 +236,20 @@ Supersedes: #{original_issue_number}
 
 **Labels:** `spec:{{SPEC_ID}}`, `extension:{{EXT_ID}}`, `override`
 
-### Step 6: Create Task Sub-Issues
+### Step 7: Create Task Sub-Issues
 
 Same as before - create sub-issues for each requirement (both base and extension).
 
 For extension tasks, include both labels: `spec:{{SPEC_ID}}`, `extension:{{EXT_ID}}`
 
-### Step 7: Establish Dependencies
+### Step 8: Establish Dependencies
 
 1. **Between requirements**: Add "blocked by" relationships
 2. **Extension requirements**: May depend on base requirements
 3. **Override handling**: New requirement inherits dependencies from overridden one
 4. **Update tracking issue**: Include all requirement issues
 
-### Step 8: Report Summary
+### Step 9: Report Summary
 
 ```
 ## Planning Complete
