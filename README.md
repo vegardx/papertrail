@@ -9,7 +9,8 @@ A documentation repository for Architecture Decision Records (ADRs), technical s
 │   ├── decisions/       # Architecture Decision Records (ADRs)
 │   │   └── ADR-NNNN-*.md
 │   ├── specs/           # Technical Specifications
-│   │   └── SPEC-NNNN-*.md
+│   │   ├── SPEC-NNNN-*.md
+│   │   └── SPEC-NNNN-EXT-NNNN-*.md  # Extensions
 │   └── standards/       # Engineering Standards
 │       └── STD-NNNN-*.md
 ├── templates/           # Scaffolding templates for bootstrapped repos
@@ -22,6 +23,7 @@ A documentation repository for Architecture Decision Records (ADRs), technical s
     ├── adr.prompt.md
     ├── spec.prompt.md
     ├── std.prompt.md
+    ├── extend.prompt.md
     └── bootstrap.prompt.md
 ```
 
@@ -32,6 +34,7 @@ flowchart TB
     subgraph papertrail["This Repository (papertrail)"]
         ADR["ADR-NNNN<br/><i>What we decided and why</i>"]
         SPEC["SPEC-NNNN<br/><i>Requirements (SHALL/MUST)</i>"]
+        EXT["SPEC-NNNN-EXT-NNNN<br/><i>Adds/overrides requirements</i>"]
         STD["STD-NNNN<br/><i>Standards & conventions</i>"]
     end
 
@@ -40,11 +43,9 @@ flowchart TB
     end
 
     subgraph impl["Implementing Repository"]
-        README["README.md"]
         SPECFILE[".github/spec/spec.md"]
+        EXTFILES[".github/spec/extensions/*.md"]
         STDFILES[".github/standards/*.md"]
-        PLANPROMPT[".github/prompts/plan.prompt.md"]
-        IMPLPROMPT[".github/prompts/implement.prompt.md"]
     end
 
     subgraph plan["/plan"]
@@ -56,7 +57,10 @@ flowchart TB
     end
 
     ADR -->|"implements"| SPEC
+    ADR -->|"implements"| EXT
+    SPEC --> EXT
     SPEC --> BOOT
+    EXT -.->|"included"| BOOT
     STD -.->|"applies to"| BOOT
     BOOT --> impl
     impl --> plan
@@ -68,6 +72,7 @@ flowchart TB
 |----------|---------|--------------|
 | **ADR** | Captures a decision and its rationale | One ADR can have many Specs |
 | **Spec** | Defines requirements (SHALL/MUST) for an implementation | References one ADR, lists implementing repos |
+| **Extension** | Adds or overrides requirements in a base spec | Extends a spec, can implement same or different ADR |
 | **Standard** | Defines reusable conventions and best practices | Applied to implementations via bootstrap |
 
 ## Copilot Commands
@@ -78,6 +83,7 @@ flowchart TB
 |---------|-------------|
 | `/adr` | Create a new Architecture Decision Record |
 | `/spec` | Create a technical specification implementing an ADR |
+| `/extend` | Create an extension to add/override requirements in a spec |
 | `/std` | Create an engineering standard |
 | `/bootstrap` | Bootstrap implementing repositories from a spec |
 
@@ -85,7 +91,7 @@ flowchart TB
 
 | Command | Description |
 |---------|-------------|
-| `/plan` | Create or refresh GitHub issues from the spec |
+| `/plan` | Create or refresh GitHub issues from the spec and extensions |
 | `/implement` | Implement the next available issue |
 
 ## Workflow
@@ -94,7 +100,7 @@ flowchart TB
 
 Creates and scaffolds implementing repositories:
 
-1. **Reads a spec** and identifies implementing repositories
+1. **Reads a spec** and any extensions
 2. **Creates repositories** (internal visibility) if they don't exist
 3. **Scaffolds each repo** with:
    - `README.md` - Links to spec and explains the project
@@ -103,21 +109,37 @@ Creates and scaffolds implementing repositories:
    - `.github/prompts/plan.prompt.md` - The `/plan` command
    - `.github/prompts/implement.prompt.md` - The `/implement` command
    - `.github/spec/spec.md` - Copy of the specification
+   - `.github/spec/extensions/*.md` - Any extensions
    - `.github/standards/*.md` - Applicable standards
 4. **Re-bootstrap**: If files exist, shows diff and creates PR to update
 
-### 2. `/plan` (in bootstrapped repo)
+### 2. `/extend` (in papertrail)
 
-Creates GitHub issues from the spec:
+Creates extensions to existing specs:
+
+1. **Select base spec** to extend
+2. **Choose ADR** - same as base or different
+3. **Add new requirements** or **override existing ones**
+4. Creates `SPEC-NNNN-EXT-NNNN-*.md` file
+
+Extensions are useful when:
+- Implementation has started and you need to add scope
+- A new ADR adds requirements to an existing system
+- You need to adapt a spec without modifying the original
+
+### 3. `/plan` (in bootstrapped repo)
+
+Creates GitHub issues from the spec and extensions:
 
 1. **Parses the spec** from `.github/spec/spec.md`
-2. **Creates tracking issue** for the overall spec
-3. **Creates requirement issues** with validation scenarios
-4. **Creates task sub-issues** for implementation work
-5. **Sets dependencies** using "blocked by" relationships
-6. **Refresh support**: Can update existing issues when spec changes
+2. **Parses extensions** from `.github/spec/extensions/`
+3. **Creates tracking issue** for the overall spec
+4. **Creates requirement issues** (base + extension requirements)
+5. **Handles overrides** - closes original, creates replacement issue
+6. **Sets dependencies** using "blocked by" relationships
+7. **Extension-only mode** - can add just extension issues if base already planned
 
-### 3. `/implement` (in bootstrapped repo)
+### 4. `/implement` (in bootstrapped repo)
 
 Works through issues systematically:
 
@@ -144,6 +166,15 @@ Specs define requirements for implementing ADRs using [OpenSpec-style](https://g
 
 **Naming convention**: `SPEC-NNNN-short-title.md`
 
+### Extensions
+
+Extensions add or override requirements in a base spec:
+- Can implement the same or a different ADR
+- "Added Requirements" section for new requirements
+- "Overridden Requirements" section to replace base requirements
+
+**Naming convention**: `SPEC-NNNN-EXT-NNNN-short-title.md`
+
 ### Standards
 
 Standards define reusable conventions and best practices using [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) keywords (MUST, SHOULD, MAY). They cover things like:
@@ -169,6 +200,7 @@ The repository includes `.vscode/mcp.json` configured with the [GitHub MCP serve
 Document templates:
 - [ADR Template](docs/decisions/adr-template.md)
 - [Spec Template](docs/specs/spec-template.md)
+- [Spec Extension Template](docs/specs/spec-extension-template.md)
 - [Standard Template](docs/standards/std-template.md)
 
 Scaffolding templates (used by `/bootstrap`):
