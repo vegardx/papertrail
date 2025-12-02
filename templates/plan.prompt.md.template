@@ -35,7 +35,7 @@ The plan process:
 ### Step 1: Parse the Spec and Extensions
 
 **Base spec** (`.github/spec/spec.md`):
-- YAML frontmatter: `implements` (ADR), spec ID
+- YAML frontmatter: `implements` (Proposal), spec ID
 - Title and Overview
 - All `### Requirement:` sections
 - All `#### Scenario:` sections
@@ -141,7 +141,7 @@ For each `### Requirement:` in extension's "Added Requirements":
 
 This requirement was added by extension [{{EXT_ID}}](.github/spec/extensions/{{EXT_FILE}}).
 
-Implements: {{ADR from extension}}
+Implements: {{Proposal from extension}}
 
 ## Requirement
 
