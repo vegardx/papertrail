@@ -1,13 +1,13 @@
 # Papertrail
 
-A documentation repository for Architecture Decision Records (ADRs), technical specifications, and engineering standards—with automated workflows to bootstrap implementing repositories.
+A documentation repository for Proposals, technical specifications, and engineering standards—with automated workflows to bootstrap implementing repositories.
 
 ## Structure
 
 ```
 ├── docs/
-│   ├── decisions/       # Architecture Decision Records (ADRs)
-│   │   └── ADR-NNNN-*.md
+│   ├── proposals/       # Proposals (PROP)
+│   │   └── PROP-NNNN-*.md
 │   ├── specs/           # Technical Specifications
 │   │   ├── SPEC-NNNN-*.md
 │   │   └── SPEC-NNNN-EXT-NNNN-*.md  # Extensions
@@ -20,7 +20,7 @@ A documentation repository for Architecture Decision Records (ADRs), technical s
 │   ├── plan.prompt.md.template
 │   └── implement.prompt.md.template
 └── .github/prompts/     # Copilot slash commands
-    ├── adr.prompt.md
+    ├── propose.prompt.md
     ├── spec.prompt.md
     ├── std.prompt.md
     ├── extend.prompt.md
@@ -32,7 +32,7 @@ A documentation repository for Architecture Decision Records (ADRs), technical s
 ```mermaid
 flowchart TB
     subgraph papertrail["This Repository (papertrail)"]
-        ADR["ADR-NNNN<br/><i>What we decided and why</i>"]
+        PROP["PROP-NNNN<br/><i>Problem exploration & proposed solutions</i>"]
         SPEC["SPEC-NNNN<br/><i>Requirements (SHALL/MUST)</i>"]
         EXT["SPEC-NNNN-EXT-NNNN<br/><i>Adds/overrides requirements</i>"]
         STD["STD-NNNN<br/><i>Standards & conventions</i>"]
@@ -56,8 +56,8 @@ flowchart TB
         IMPL["Branch → Code → PR"]
     end
 
-    ADR -->|"implements"| SPEC
-    ADR -->|"implements"| EXT
+    PROP -->|"implements"| SPEC
+    PROP -->|"implements"| EXT
     SPEC --> EXT
     SPEC --> BOOT
     EXT -.->|"included"| BOOT
@@ -70,9 +70,9 @@ flowchart TB
 
 | Document | Purpose | Relationship |
 |----------|---------|--------------|
-| **ADR** | Captures a decision and its rationale | One ADR can have many Specs |
-| **Spec** | Defines requirements (SHALL/MUST) for an implementation | References one ADR, lists implementing repos |
-| **Extension** | Adds or overrides requirements in a base spec | Extends a spec, can implement same or different ADR |
+| **Proposal** | Explores a problem and proposes potential solutions | One Proposal can have many Specs |
+| **Spec** | Defines requirements (SHALL/MUST) for an implementation | References one Proposal, lists implementing repos |
+| **Extension** | Adds or overrides requirements in a base spec | Extends a spec, can implement same or different Proposal |
 | **Standard** | Defines reusable conventions and best practices | Applied to implementations via bootstrap |
 
 ## Copilot Commands
@@ -81,8 +81,8 @@ flowchart TB
 
 | Command | Description |
 |---------|-------------|
-| `/adr` | Create a new Architecture Decision Record |
-| `/spec` | Create a technical specification implementing an ADR |
+| `/propose` | Create a new Proposal to explore a problem and potential solutions |
+| `/spec` | Create a technical specification implementing a Proposal |
 | `/extend` | Create an extension to add/override requirements in a spec |
 | `/std` | Create an engineering standard |
 | `/bootstrap` | Bootstrap implementing repositories from a spec |
@@ -118,13 +118,13 @@ Creates and scaffolds implementing repositories:
 Creates extensions to existing specs:
 
 1. **Select base spec** to extend
-2. **Choose ADR** - same as base or different
+2. **Choose Proposal** - same as base or different
 3. **Add new requirements** or **override existing ones**
 4. Creates `SPEC-NNNN-EXT-NNNN-*.md` file
 
 Extensions are useful when:
 - Implementation has started and you need to add scope
-- A new ADR adds requirements to an existing system
+- A new Proposal adds requirements to an existing system
 - You need to adapt a spec without modifying the original
 
 ### 3. `/plan` (in bootstrapped repo)
@@ -151,15 +151,22 @@ Works through issues systematically:
 
 ## Document Formats
 
-### ADRs (Architecture Decision Records)
+### Proposals
 
-ADRs capture significant architectural decisions along with their context and consequences. We use the [MADR 4.0.0](https://adr.github.io/madr/) format.
+Proposals explore problems and potential solutions. They capture the "what" and "why" before diving into implementation details.
 
-**Naming convention**: `ADR-NNNN-short-title.md`
+**Naming convention**: `PROP-NNNN-short-title.md`
+
+Key sections:
+- Problem Statement - What problem are we trying to solve?
+- Goals / Non-Goals - What's in and out of scope?
+- Background - Context and previous attempts
+- Proposed Direction - Options with pros/cons
+- Recommendation - Which option and why
 
 ### Specifications
 
-Specs define requirements for implementing ADRs using [OpenSpec-style](https://github.com/Fission-AI/OpenSpec) format:
+Specs define requirements for implementing Proposals using [OpenSpec-style](https://github.com/Fission-AI/OpenSpec) format:
 - SHALL/MUST requirement statements
 - GIVEN/WHEN/THEN scenarios for validation
 - List of implementing repositories
@@ -169,7 +176,7 @@ Specs define requirements for implementing ADRs using [OpenSpec-style](https://g
 ### Extensions
 
 Extensions add or override requirements in a base spec:
-- Can implement the same or a different ADR
+- Can implement the same or a different Proposal
 - "Added Requirements" section for new requirements
 - "Overridden Requirements" section to replace base requirements
 
@@ -198,7 +205,7 @@ The repository includes `.vscode/mcp.json` configured with the [GitHub MCP serve
 ## Templates
 
 Document templates:
-- [ADR Template](docs/decisions/adr-template.md)
+- [Proposal Template](docs/proposals/proposal-template.md)
 - [Spec Template](docs/specs/spec-template.md)
 - [Spec Extension Template](docs/specs/spec-extension-template.md)
 - [Standard Template](docs/standards/std-template.md)
