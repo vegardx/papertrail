@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- `/propose` now creates a branch and opens a PR for discussion instead of committing directly
+- Spec template now includes Technology section for language, frameworks, libraries, and file structure
+- `/spec` command now guides users through interactive technology selection
+- `/spec` command now generates detailed requirements with configuration, files, and measurable behavior
+- `/plan` now creates phased sub-issues using GitHub's sub-issues feature:
+  - 3-level hierarchy: Epic → Phase → Task
+  - Named phases: Setup, Foundation, Requirements, Polish
+  - Detailed task issues with implementation steps and file paths
+
+### Changed
+
+- Requirements in specs now include Configuration, Behavior, and Files sections
+- Scenarios now support AND clauses for multiple verifiable outcomes
+- `/plan` uses GitHub sub-issues instead of flat issue structure
+
+### Breaking Changes
+
+- `/plan` output format has changed significantly - existing issues may need manual cleanup
+
 ## [1.0.0] - 2025-12-03
 
 Initial release of Papertrail - a documentation framework for managing proposals, specifications, and standards with AI-assisted workflows.
