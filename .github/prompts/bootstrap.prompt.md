@@ -109,7 +109,7 @@ Before making any changes, present a summary of what will be done:
 - README.md
 - AGENTS.md
 - .gitignore
-- .vscode/mcp.json
+- .mcp.json
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md
@@ -146,7 +146,7 @@ Use GitHub MCP to check if the repository exists.
    - Replace `{{STANDARDS_GITIGNORE}}` with aggregated gitignore entries from standards
    - Always includes `scratchpad/` directory
 
-   **.vscode/mcp.json** (from `templates/mcp.json.template`):
+   **.mcp.json** (from `templates/mcp.json.template`):
    - Copy as-is (no variables to replace)
 
    **AGENTS.md** (from `templates/AGENTS.md.template`):
@@ -203,7 +203,7 @@ After completing all operations, report:
 - README.md
 - AGENTS.md
 - .gitignore
-- .vscode/mcp.json
+- .mcp.json
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md
@@ -261,7 +261,7 @@ Repository `github/runner-infra` does not exist. I'll create it now.
 - README.md
 - AGENTS.md
 - .gitignore
-- .vscode/mcp.json
+- .mcp.json
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md

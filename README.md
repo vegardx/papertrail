@@ -205,7 +205,7 @@ Creates and scaffolds implementing repositories:
    - `README.md` - Links to spec and explains the project
    - `AGENTS.md` - Instructions for AI agents to read spec/standards
    - `.gitignore` - Ignores `scratchpad/` and standard-specific patterns
-   - `.vscode/mcp.json` - GitHub MCP server configuration
+   - `.mcp.json` - GitHub MCP server configuration
    - `.github/prompts/plan.prompt.md` - The `/plan` command
    - `.github/prompts/implement.prompt.md` - The `/implement` command
    - `.github/spec/spec.md` - Copy of the specification
@@ -353,7 +353,7 @@ A workspace for agents to create:
 
 ## Setup
 
-The repository includes `.vscode/mcp.json` configured with the [GitHub MCP server](https://github.com/github/github-mcp-server). Open the repository in VS Code and the MCP server will be available automatically.
+The repository includes `.mcp.json` configured with the [GitHub MCP server](https://github.com/github/github-mcp-server). The MCP server URL can be customized via the `COPILOT_MCP_URL` environment variable (defaults to `https://copilot-api.dnb.ghe.com/mcp`).
 
 ## Templates
 

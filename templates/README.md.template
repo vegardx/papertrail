@@ -28,7 +28,7 @@ This implementation follows these standards:
 ### Getting Started
 
 1. Open this repository in VS Code
-2. The MCP servers will be configured automatically (see `.vscode/mcp.json`)
+2. The MCP servers will be configured automatically (see `.mcp.json`)
 3. Use `/implement` in Copilot Chat to work on issues
 
 ### Implementation Workflow

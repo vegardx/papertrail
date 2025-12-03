@@ -305,7 +305,7 @@ Found standards:
 ### Files to Scaffold
 - README.md
 - .gitignore
-- .vscode/mcp.json
+- .mcp.json
 - .github/copilot-instructions.md
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
@@ -336,7 +336,7 @@ Scaffolding files...
 - README.md
 - AGENTS.md
 - .gitignore
-- .vscode/mcp.json
+- .mcp.json
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md

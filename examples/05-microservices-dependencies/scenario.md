@@ -234,7 +234,7 @@ Cloning dependency into `scratchpad/contexts/`:
 - README.md
 - AGENTS.md
 - .gitignore (includes `scratchpad/`)
-- .vscode/mcp.json
+- .mcp.json
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md
