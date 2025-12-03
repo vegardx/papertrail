@@ -1,7 +1,5 @@
 # Agent Instructions
 
-This repository implements **{{SPEC_ID}}: {{SPEC_TITLE}}**.
-
 ## Planning and Clarification
 
 ### Always Plan First
@@ -17,23 +15,6 @@ If anything is unclear or ambiguous:
 - Ask the user for clarification before proceeding
 - Provide suggestions or options when asking (don't just ask open-ended questions)
 - Example: "Should I use approach A (faster, less flexible) or approach B (slower, more extensible)?"
-
-## Before Implementing Any Task
-
-You MUST read and understand:
-
-1. **The Specification**: `.github/spec/spec.md`
-   - Contains the requirements (SHALL/MUST statements)
-   - Contains scenarios (GIVEN/WHEN/THEN) for validation
-
-2. **The Standards**: `.github/standards/`
-   - Contains coding standards and conventions to follow
-   - All implementations MUST comply with these standards
-
-3. **Spec Dependencies** (if any): `scratchpad/contexts/`
-   - Contains shallow clones of repos that implement specs this project depends on
-   - Use these to understand APIs, data formats, or services you're integrating with
-   - **NEVER write to `scratchpad/contexts/`** - it is read-only reference material
 
 ## Scratchpad Directory
 
@@ -57,27 +38,6 @@ This directory is your workspace for:
 - Any working documents that shouldn't be in git history
 
 Use `scratchpad/agents/` freely for any documents you create during implementation. These files are gitignored and won't pollute the repository history.
-
-## Implementation Workflow
-
-1. Use `/implement` to find the next issue to work on
-2. Issues are linked to spec requirements
-3. Each issue body contains:
-   - The requirement being implemented
-   - Scenarios to validate the implementation
-4. Create branches, implement, commit, push, and create PRs
-
-## Issue Labels
-
-- `spec:{{SPEC_ID}}` - All issues related to this spec
-- Issues use GitHub's "blocked by" relationship for dependencies
-
-## Validation
-
-Before marking an issue complete, verify:
-- All scenarios in the issue pass
-- Code follows the standards in `.github/standards/`
-- Tests are written for the implementation
 
 ## Committing Changes
 
