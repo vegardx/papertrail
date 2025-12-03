@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Create or refresh GitHub issues from the spec, extensions, and standards
+description: Create phased GitHub issues with sub-issues from the spec
 agent: agent
 argument-hint: Optional flags --extensions-only or --refresh
 tools:
@@ -9,125 +9,132 @@ tools:
   - githubRepo
 ---
 
-You are a planning assistant. Your role is to create GitHub issues from the spec, extensions, and standards in this repository, establishing proper tracking and dependencies.
+You are a planning assistant. Your role is to create a structured hierarchy of GitHub issues from the spec, using phases and sub-issues to organize implementation work.
 
 ## Tool Usage
 
 Use your available tools to complete this task:
 - **File operations**: Read files to examine content
-- **Search**: Search the codebase for files and content (glob patterns, grep/ripgrep)
-- **GitHub operations**: Use GitHub CLI (`gh`) or GitHub MCP tools for issue and label management
+- **Search**: Search the codebase for files and content
+- **GitHub operations**: Use GitHub CLI (`gh`) or GitHub MCP tools
 
 ### GitHub CLI Commands
 
-If GitHub MCP tools are not available, use the GitHub CLI:
-- `gh issue create` - Create issues
-- `gh issue list` - List existing issues
-- `gh issue edit` - Update issues
-- `gh label create` - Create labels
+```bash
+gh issue create --title "..." --body "..." --label "..."
+gh issue list --label "..."
+gh issue edit NUMBER --add-label "..."
+gh label create NAME --color "HEXCODE"
+```
 
-### GitHub MCP Tools (if available)
+### GitHub Sub-Issues
 
-The GitHub MCP server provides tools for:
-- Creating and listing issues
-- Creating and managing labels
-- Reading repository content
+GitHub sub-issues create parent-child relationships:
+- Create parent issue first, note the issue number
+- Create sub-issues and link them to parent
+- Use "Add sub-issue" in the GitHub UI or API
 
 ## Before You Start
 
 Read these files to understand what needs to be planned:
-1. `.github/spec/spec.md` - The base specification
+1. `.github/spec/spec.md` - The specification
 2. `.github/spec/extensions/*.md` - Any spec extensions (if they exist)
-3. `.github/standards/*.md` - All standards that apply
 
-## Overview
+## Issue Hierarchy
 
-The plan process:
-1. Reads the base spec from `.github/spec/spec.md`
-2. Reads any extensions from `.github/spec/extensions/`
-3. Reads all standards from `.github/standards/`
-4. Clones spec dependency repos into `scratchpad/contexts/` (if any)
-5. Creates (or refreshes) GitHub issues:
-   - One tracking issue for the spec
-   - One issue per requirement (with scenarios for validation)
-   - Sub-issues for implementation tasks
-   - Dependencies using "blocked by" relationships
+The plan creates a 3-level hierarchy using GitHub sub-issues:
+
+```
+#1 [SPEC-0001] Project Title (Epic - Tracking Issue)
+├── #2 [Setup] Initial Configuration (Phase - Parent Issue)
+│   ├── #3 Initialize project with framework
+│   ├── #4 Configure build tooling
+│   └── #5 Set up CI/CD workflow
+├── #6 [Foundation] Core Structure (Phase - Parent Issue)
+│   ├── #7 Create base configuration
+│   ├── #8 Set up navigation structure
+│   └── #9 Configure search integration
+├── #10 [Requirement: X] Feature Name (Phase - Parent Issue)
+│   ├── #11 Implement component A
+│   ├── #12 Implement component B
+│   └── #13 Add integration tests
+└── #14 [Polish] Final Touches (Phase - Parent Issue)
+    ├── #15 Add documentation
+    ├── #16 Performance optimization
+    └── #17 Cleanup and review
+```
+
+## Named Phases
+
+Organize work into these named phases:
+
+1. **Setup** - Project initialization, dependencies, tooling, CI/CD
+2. **Foundation** - Core structure that other work depends on
+3. **[Requirement: X]** - One phase per major requirement from the spec
+4. **Polish** - Documentation, tests, optimization, cleanup
 
 ## Your Process
 
-### Step 1: Parse the Spec and Extensions
+### Step 1: Parse the Spec
 
-**Base spec** (`.github/spec/spec.md`):
+Read `.github/spec/spec.md` and extract:
 - YAML frontmatter: `implements` (Proposal), spec ID
 - Title and Overview
-- All `### Requirement:` sections
+- Technology section (language, frameworks, file structure)
+- All `### Requirement:` sections with their details
 - All `#### Scenario:` sections
+- Files tables from each requirement
 
-**Extensions** (`.github/spec/extensions/*.md`):
-- Check if directory exists and contains files
-- For each extension, extract:
-  - `extends` and `implements` from frontmatter
-  - `## Added Requirements` section
-  - `## Overridden Requirements` section
+### Step 2: Analyze Requirements for Tasks
 
-### Step 2: Clone Spec Dependencies
+For each requirement, break it down into specific tasks based on:
+- **Files to create/modify** from the requirement's Files table
+- **Configuration** items that need to be set up
+- **Behavior** that needs to be implemented
+- **Scenarios** that need to pass
 
-Check the base spec for a `## Spec Dependencies` section. If it exists:
+Each task should be specific enough that an agent can implement it without asking for clarification.
 
-1. **Parse each dependency** - Extract `SPEC-NNNN` identifiers from the section headers
-2. **For each dependent spec:**
-   a. Find the spec file in the papertrail repo (using file search or GitHub API)
-   b. Read the spec to get its `implementations` list
-   c. If multiple repos implement the spec, ask the user:
-      "Spec **{SPEC-NNNN}: {title}** has multiple implementations:
-      - A) {org/repo-1}
-      - B) {org/repo-2}
-      - C) {org/repo-3}
+### Step 3: Organize into Phases
 
-      Which repository should I clone for context?"
-   d. If only one repo, use it automatically
-3. **Clone the selected repo:**
-   - Create `scratchpad/contexts/` directory if it doesn't exist
-   - Run: `git clone --depth 1 --branch main {repo_url} scratchpad/contexts/{repo-name}`
-4. **Report what was cloned:**
-   ```
-   Cloned spec dependencies into scratchpad/contexts/:
-   - SPEC-0001 → github/auth-service (from github/auth-service)
-   - SPEC-0003 → github/data-api (from github/data-api)
-   ```
+Group tasks into phases:
 
-**If no Spec Dependencies section exists:** Skip this step.
+**Setup Phase** tasks:
+- Initialize project with the framework specified in Technology section
+- Install dependencies from the spec
+- Create base configuration files
+- Set up GitHub Actions workflow
 
-### Step 3: Check for Existing Issues
+**Foundation Phase** tasks:
+- Create the directory structure from the spec
+- Set up core configuration (main config file, navigation, etc.)
+- Configure integrations (search, analytics, etc.)
 
-Search for issues with label `spec:{{SPEC_ID}}`:
+**Requirement Phases** (one per requirement):
+- Tasks derived from that requirement's Files table
+- Tasks to implement the Configuration items
+- Tasks to satisfy the Scenarios
 
-**If issues exist AND extensions exist:**
+**Polish Phase** tasks:
+- Add contribution documentation
+- Add local development guide
+- Performance review
+- Final cleanup
 
-Ask the user:
-"Found existing issues for {{SPEC_ID}} base spec, and found extensions: {list extensions}.
+### Step 4: Create Labels
 
-What would you like to do?
-- **A) Create issues for extensions only** - Add new issues for extension requirements
-- **B) Refresh all issues** - Update base + extension issues
-- **C) Cancel** - Exit without changes"
+Create these labels:
 
-**If issues exist (no extensions):**
-Ask: "Found X existing issues. Do you want to refresh them?"
+| Label | Color | Purpose |
+|-------|-------|---------|
+| `spec:{{SPEC_ID}}` | `#7057ff` | All issues for this spec |
+| `phase:setup` | `#0e8a16` | Setup phase |
+| `phase:foundation` | `#1d76db` | Foundation phase |
+| `phase:requirement` | `#d93f0b` | Requirement phases |
+| `phase:polish` | `#fbca04` | Polish phase |
+| `tracking` | `#000000` | Epic/tracking issues |
 
-**If no issues exist:**
-Proceed to create all issues (base + extensions).
-
-### Step 4: Create/Update Labels
-
-Ensure these labels exist:
-- `spec:{{SPEC_ID}}` - Color: `#7057ff`
-- `extension:{{EXT_ID}}` - Color: `#fbca04` (for each extension)
-- `tracking` - Color: `#0e8a16`
-- `task` - Color: `#1d76db`
-- `override` - Color: `#d93f0b` (for overridden requirements)
-
-### Step 5: Create Tracking Issue
+### Step 5: Create Epic (Tracking Issue)
 
 **Title:** `[{{SPEC_ID}}] {{SPEC_TITLE}}`
 
@@ -139,224 +146,230 @@ Ensure these labels exist:
 
 ## Specification
 
-This repository implements [{{SPEC_ID}}: {{SPEC_TITLE}}]({{SPEC_URL}}).
+- Spec: [.github/spec/spec.md](.github/spec/spec.md)
+- Proposal: [{{PROP_ID}}]({{PROP_URL}})
 
-Full spec: [.github/spec/spec.md](.github/spec/spec.md)
+## Technology
 
-## Extensions
+- **Language:** {{language}}
+- **Framework:** {{framework}}
+- **Runtime:** {{runtime}}
 
-{{If extensions exist, list them with links}}
-- [{{EXT_ID}}: {{EXT_TITLE}}](.github/spec/extensions/{{EXT_FILE}})
+## Phases
 
-## Requirements
-
-### Base Spec
-{{REQUIREMENTS_CHECKLIST}}
-
-### From Extensions
-{{EXTENSION_REQUIREMENTS_CHECKLIST}}
-
-## Standards
-
-This implementation follows:
-{{STANDARDS_LIST}}
+- [ ] Setup - Project initialization and tooling
+- [ ] Foundation - Core structure and configuration
+{{For each requirement}}
+- [ ] {{Requirement name}}
+{{End for}}
+- [ ] Polish - Documentation and cleanup
 
 ## Progress
 
-Track implementation progress in the linked requirement issues.
+Track progress via the phase issues linked below.
 ```
 
 **Labels:** `spec:{{SPEC_ID}}`, `tracking`
 
-### Step 6: Create Requirement Issues
+### Step 6: Create Phase Issues (Parents)
 
-#### For Base Spec Requirements
+For each phase, create a parent issue:
 
-For each `### Requirement:` in the base spec:
-
-**Title:** `[{{SPEC_ID}}] Requirement: {requirement name}`
-
-**Body:** (same as before - requirement text, scenarios, standards, references)
-
-**Labels:** `spec:{{SPEC_ID}}`
-
-#### For Extension Added Requirements
-
-For each `### Requirement:` in extension's "Added Requirements":
-
-**Title:** `[{{EXT_ID}}] Requirement: {requirement name}`
+**Title:** `[{{Phase Name}}] {{Phase Description}}`
 
 **Body:**
 ```markdown
-## Extension Requirement
+## Phase: {{Phase Name}}
 
-This requirement was added by extension [{{EXT_ID}}](.github/spec/extensions/{{EXT_FILE}}).
+{{Description of what this phase accomplishes}}
 
-Implements: {{Proposal from extension}}
+## Tasks
 
-## Requirement
+This phase contains the following tasks (as sub-issues):
 
-{Full requirement text}
+{{List of task titles that will be created}}
 
-## Validation Scenarios
+## Blocked By
 
-{scenarios}
+{{If this phase depends on another phase}}
+- #{{previous_phase_number}} must be completed first
 
----
+## Acceptance Criteria
 
-## Standards to Follow
-{standards}
-
-## References
-
-- Tracking: #{tracking_issue_number}
-- Extension: [{{EXT_ID}}](.github/spec/extensions/{{EXT_FILE}})
-- Base Spec: [{{SPEC_ID}}](.github/spec/spec.md)
+- [ ] All sub-issues are completed
+- [ ] {{Any phase-specific criteria}}
 ```
 
-**Labels:** `spec:{{SPEC_ID}}`, `extension:{{EXT_ID}}`
+**Labels:** `spec:{{SPEC_ID}}`, `phase:{{phase-type}}`
 
-#### For Extension Overridden Requirements
+**Make this a sub-issue of:** Epic (#1)
 
-For each `### Overrides:` in extension's "Overridden Requirements":
+### Step 7: Create Task Issues (Sub-Issues)
 
-1. **Find the original requirement issue** (if it exists)
-2. **Close the original issue** with comment: "Superseded by #{new_issue} via extension {{EXT_ID}}"
-3. **Create new requirement issue:**
+For each task within a phase, create a detailed sub-issue:
 
-**Title:** `[{{EXT_ID}}] Requirement: {requirement name} (overrides base)`
+**Title:** `{{Task description}}`
 
 **Body:**
 ```markdown
-## Overridden Requirement
+## Task
 
-This requirement overrides the original from [{{SPEC_ID}}](.github/spec/spec.md).
+{{Clear description of what needs to be done}}
 
-**Original requirement:** {summary}
-**Reason for override:** {reason from extension}
+## Context
 
-Supersedes: #{original_issue_number}
+**Phase:** {{Phase name}}
+**Requirement:** {{If from a requirement, link to it}}
 
-## New Requirement
+## Implementation Steps
 
-{Full updated requirement text}
+1. {{Step 1 with specific details}}
+2. {{Step 2 with specific details}}
+3. {{Step 3 with specific details}}
 
-## Validation Scenarios
+## Files to Create/Modify
 
-{new scenarios}
+| Action | Path | Purpose |
+|--------|------|---------|
+| {{Create/Modify/Delete}} | `{{exact/path/to/file}}` | {{What this file does}} |
+| {{Create/Modify/Delete}} | `{{exact/path/to/file}}` | {{What this file does}} |
 
----
+## Acceptance Criteria
 
-## Standards to Follow
-{standards}
+- [ ] {{Specific, verifiable criterion}}
+- [ ] {{Specific, verifiable criterion}}
+- [ ] {{Specific, verifiable criterion}}
 
-## References
+## Blocked By
 
-- Tracking: #{tracking_issue_number}
-- Extension: [{{EXT_ID}}](.github/spec/extensions/{{EXT_FILE}})
+{{If this task depends on other tasks}}
+- #{{issue_number}} - {{task title}}
 ```
 
-**Labels:** `spec:{{SPEC_ID}}`, `extension:{{EXT_ID}}`, `override`
+**Labels:** `spec:{{SPEC_ID}}`, `phase:{{phase-type}}`
 
-### Step 7: Create Task Sub-Issues
-
-Same as before - create sub-issues for each requirement (both base and extension).
-
-For extension tasks, include both labels: `spec:{{SPEC_ID}}`, `extension:{{EXT_ID}}`
+**Make this a sub-issue of:** Phase issue
 
 ### Step 8: Establish Dependencies
 
-1. **Between requirements**: Add "blocked by" relationships
-2. **Extension requirements**: May depend on base requirements
-3. **Override handling**: New requirement inherits dependencies from overridden one
-4. **Update tracking issue**: Include all requirement issues
+Add "Blocked by" references in issue bodies:
+- Phase issues blocked by previous phases
+- Task issues blocked by tasks they depend on
+
+Example dependency patterns:
+- Foundation phase blocked by Setup phase
+- Requirement phases blocked by Foundation phase
+- Polish phase blocked by all Requirement phases
+- Tasks within a phase may have internal dependencies
 
 ### Step 9: Report Summary
 
-```
+```markdown
 ## Planning Complete
 
-### Tracking Issue
-- #{number} - [{{SPEC_ID}}] {{SPEC_TITLE}}
+### Epic
+- #1 - [{{SPEC_ID}}] {{SPEC_TITLE}}
 
-### Base Spec Requirements
-{list with tasks}
+### Phases
 
-### Extension Requirements
-{For each extension}
-#### {{EXT_ID}}: {{EXT_TITLE}}
-- Added: #{number} - Requirement: {name}
-- Overrides: #{number} - Requirement: {name} (supersedes #{old})
+#### Setup (Phase #2)
+- #3 - Initialize Docusaurus project
+- #4 - Configure TypeScript
+- #5 - Set up GitHub Actions
+
+#### Foundation (Phase #6)
+- #7 - Configure docusaurus.config.ts
+- #8 - Set up sidebar navigation
+- #9 - Configure Algolia search
+
+#### Requirement: Static Site Generation (Phase #10)
+- #11 - Create docs directory structure
+- #12 - Add initial content templates
+
+#### Requirement: GitHub Pages Deployment (Phase #13)
+- #14 - Configure deployment workflow
+
+#### Polish (Phase #15)
+- #16 - Add CONTRIBUTING.md
+- #17 - Add local development guide
 
 ### Dependency Graph
-{Show implementation order}
 
-### Next Steps
-Run `/implement` to start working on the first available issue.
+```
+Setup (#2)
+  └── Foundation (#6)
+        ├── Static Site Generation (#10)
+        ├── GitHub Pages Deployment (#13)
+        └── ... other requirements
+              └── Polish (#15)
 ```
 
-## Extensions-Only Mode
+### Next Steps
 
-When user specifies `--extensions-only` or chooses option A:
+Run `/implement` to start working on tasks in the Setup phase.
+```
 
-1. Skip base spec issues entirely
-2. Only process extensions
-3. Link extension issues to existing tracking issue
-4. Do not modify existing base requirement issues
+## Task Detail Guidelines
 
-## Refreshing Existing Issues
+Each task issue MUST include:
 
-When refreshing:
+1. **Clear description** - What needs to be done
+2. **Implementation steps** - Numbered steps an agent can follow
+3. **Exact file paths** - Every file to create/modify
+4. **Acceptance criteria** - Checkboxes for verifiable outcomes
+5. **Dependencies** - Blocked by references if applicable
 
-1. **Match issues by title pattern**
-2. **Update issue bodies** with current content
-3. **Handle new extensions** - create their issues
-4. **Handle removed extensions** - do NOT delete (manual cleanup)
-5. **Update relationships**
+**Example of a well-detailed task:**
+
+```markdown
+## Task
+
+Configure the main Docusaurus configuration file for GitHub Pages deployment.
+
+## Context
+
+**Phase:** Foundation
+**Requirement:** Static Site Generation, GitHub Pages Deployment
+
+## Implementation Steps
+
+1. Open `docusaurus.config.ts`
+2. Set `url` to `https://github.github.io`
+3. Set `baseUrl` to `/open-sesame/`
+4. Set `organizationName` to `github`
+5. Set `projectName` to `open-sesame`
+6. Set `trailingSlash` to `true`
+7. Configure the `themeConfig` with site title and navbar
+
+## Files to Create/Modify
+
+| Action | Path | Purpose |
+|--------|------|---------|
+| Modify | `docusaurus.config.ts` | Main site configuration |
+
+## Acceptance Criteria
+
+- [ ] `url` is set to the correct GitHub Pages URL
+- [ ] `baseUrl` matches the repository name
+- [ ] `organizationName` and `projectName` are configured
+- [ ] `trailingSlash` is set to `true`
+- [ ] `npm run build` completes without errors
+- [ ] Built site links work correctly with baseUrl prefix
+
+## Blocked By
+
+- #3 - Initialize Docusaurus project
+```
 
 ## Error Handling
 
 - If spec not found: Report error and exit
-- If extension references unknown requirement to override: Warn and skip
 - If GitHub API fails: Report which operations failed
+- If sub-issue creation fails: Note the parent issue and retry
 
-## Example Session with Extensions
+## Extensions Support
 
-**User:** /plan
-
-**You:** Let me read the spec, extensions, and standards...
-
-*[Reads files]*
-
-Found:
-- **Base spec:** {{SPEC_ID}}: {{SPEC_TITLE}}
-- **Extensions:**
-  - SPEC-0001-EXT-0001: Enhanced Monitoring
-- **Existing issues:** 12 issues with label `spec:SPEC-0001`
-
-What would you like to do?
-- **A) Create issues for extensions only**
-- **B) Refresh all issues**
-- **C) Cancel**
-
-**User:** A
-
-**You:** Creating issues for extension SPEC-0001-EXT-0001 only...
-
-*[Creates extension issues]*
-
-## Planning Complete
-
-### Extension: SPEC-0001-EXT-0001 (Enhanced Monitoring)
-
-**Added Requirements:**
-- #13 - Requirement: Distributed Tracing
-  - Tasks: #15, #16
-
-**Overridden Requirements:**
-- #14 - Requirement: Monitoring (overrides base)
-  - Supersedes: #4 (now closed)
-  - Tasks: #17, #18
-
-### Next Steps
-Run `/implement` to continue. Extension issues are now available.
+When extensions exist (`.github/spec/extensions/*.md`):
+- Create additional requirement phases for extension requirements
+- Label extension tasks with both `spec:{{SPEC_ID}}` and `extension:{{EXT_ID}}`
+- Extension phases may depend on base requirement phases
