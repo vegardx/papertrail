@@ -41,9 +41,34 @@ Use `scratchpad/agents/` freely for any documents you create during implementati
 
 ## Committing Changes
 
+### Create a Commit Plan
+
+After implementing changes, automatically create a commit plan before asking the user:
+1. Review all modified files
+2. Group related changes into logical commits
+3. Draft commit messages for each group
+4. Present the plan to the user
+
+Example:
+```
+## Commit Plan
+
+1. feat: add user validation endpoint
+   - src/api/users.ts
+   - src/validators/user.ts
+
+2. test: add tests for user validation
+   - tests/api/users.test.ts
+
+3. docs: update API documentation
+   - docs/api.md
+
+Ready to commit? (yes/no/modify)
+```
+
 ### Always Ask First
 
-After implementing changes, always ask the user if they want to commit. Never commit automatically without confirmation.
+Present the commit plan and ask the user if they want to proceed. Never commit automatically without confirmation.
 
 ### Logical Commits
 
