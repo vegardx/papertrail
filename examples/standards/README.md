@@ -58,6 +58,27 @@ gitignore:
 
 During `/bootstrap`, these patterns are aggregated into the repo's `.gitignore`.
 
+### Scaffold Integration
+
+Standards can specify directories and files to scaffold in their frontmatter:
+
+```yaml
+scaffold:
+  directories:
+    - "src/"
+    - "tests/"
+  files:
+    - path: "tsconfig.json"
+      content: |
+        {
+          "compilerOptions": {
+            "strict": true
+          }
+        }
+```
+
+During `/bootstrap`, these directories are created and files are written to the implementing repo. This ensures projects start with the correct structure and configuration files required by the standard.
+
 ## Writing Good Standards
 
 ### DO

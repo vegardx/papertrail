@@ -9,6 +9,7 @@ reviewers:
   - "@architecture-review"
   - "@security-team"
 gitignore: []
+scaffold: {}
 ---
 
 # STD-0003: API Design

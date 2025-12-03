@@ -14,6 +14,58 @@ gitignore:
   - "vendor/"
   - ".env"
   - ".env.local"
+scaffold:
+  directories:
+    - "cmd/"
+    - "internal/"
+    - "internal/api/"
+    - "internal/config/"
+    - "internal/domain/"
+    - "internal/repository/"
+    - "api/"
+    - "migrations/"
+  files:
+    - path: "Makefile"
+      content: |
+        .PHONY: build test lint run
+
+        build:
+        	go build -o bin/service ./cmd/...
+
+        test:
+        	go test -race -coverprofile=coverage.out ./...
+
+        lint:
+        	golangci-lint run
+
+        run:
+        	go run ./cmd/...
+    - path: ".golangci.yml"
+      content: |
+        run:
+          go: "1.21"
+          timeout: 5m
+
+        linters:
+          enable:
+            - errcheck
+            - gosimple
+            - govet
+            - ineffassign
+            - staticcheck
+            - unused
+            - gosec
+            - errorlint
+            - gocritic
+
+        linters-settings:
+          errcheck:
+            check-type-assertions: true
+          gocritic:
+            enabled-tags:
+              - diagnostic
+              - style
+              - performance
 ---
 
 # STD-0001: Go Services
