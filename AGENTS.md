@@ -74,7 +74,8 @@ Use `scratchpad/agents/` freely for any documents you create during implementati
 
 ### Create a Commit Plan
 
-After implementing changes, automatically create a commit plan before asking the user:
+Present the commit plan and ask the user if they want to proceed. Never commit automatically without confirmation.
+
 1. Review all modified files
 2. Group related changes into logical commits
 3. Draft commit messages for each group
@@ -96,10 +97,6 @@ Example:
 
 Ready to commit? (yes/no/modify)
 ```
-
-### Always Ask First
-
-Present the commit plan and ask the user if they want to proceed. Never commit automatically without confirmation.
 
 ### Logical Commits
 
