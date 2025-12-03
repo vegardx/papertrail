@@ -380,3 +380,10 @@ Document templates:
 
 Scaffolding templates (used by `/bootstrap`):
 - [templates/](templates/)
+
+## Acknowledgments
+
+Papertrail builds on ideas from these excellent projects:
+
+- [OpenSpec](https://github.com/Fission-AI/OpenSpec) - Spec-driven development for AI coding assistants, with its two-folder model for managing spec changes
+- [GitHub Spec-Kit](https://github.com/github/spec-kit) - Toolkit for spec-driven development with structured specify → plan → tasks → implement workflow
