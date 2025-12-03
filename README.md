@@ -153,7 +153,7 @@ SPEC-0001: User Service (exposes user API)
             └── SPEC-0003: Notification Service (depends on Order events)
 ```
 
-When you `/bootstrap` SPEC-0002, the User Service repo gets cloned into `.contexts/` so you can reference its API. The dependency chain ensures services are built in the right order.
+When you `/bootstrap` SPEC-0002, the User Service repo gets cloned into `scratchpad/contexts/` so you can reference its API. The dependency chain ensures services are built in the right order.
 
 ### See It In Action
 
@@ -204,7 +204,7 @@ Creates and scaffolds implementing repositories:
 3. **Scaffolds each repo** with:
    - `README.md` - Links to spec and explains the project
    - `AGENTS.md` - Instructions for AI agents to read spec/standards
-   - `.gitignore` - Ignores `.contexts/`, `.plans/`, and standard-specific patterns
+   - `.gitignore` - Ignores `scratchpad/` and standard-specific patterns
    - `.vscode/mcp.json` - GitHub MCP server configuration
    - `.github/prompts/plan.prompt.md` - The `/plan` command
    - `.github/prompts/implement.prompt.md` - The `/implement` command
@@ -233,7 +233,7 @@ Creates GitHub issues from the spec and extensions:
 
 1. **Parses the spec** from `.github/spec/spec.md`
 2. **Parses extensions** from `.github/spec/extensions/`
-3. **Clones spec dependencies** into `.contexts/` (shallow clone of main)
+3. **Clones spec dependencies** into `scratchpad/contexts/` (shallow clone of main)
    - If a dependent spec has multiple implementing repos, asks which to clone
 4. **Creates tracking issue** for the overall spec
 5. **Creates requirement issues** (base + extension requirements)
@@ -327,23 +327,23 @@ Standards define reusable conventions and best practices using [RFC 2119](https:
 
 **Naming convention**: `STD-NNNN-short-title.md`
 
-## Special Directories in Bootstrapped Repos
+## Scratchpad Directory in Bootstrapped Repos
 
-### `.contexts/` - Read-Only Reference
+The `scratchpad/` directory is gitignored and contains working files for agents:
+
+### `scratchpad/contexts/` - Read-Only Reference
 
 Contains shallow clones of repositories that implement specs this project depends on (from the "Spec Dependencies" section). Use this to understand APIs, data formats, or services you're integrating with.
 
-**Important:** Never modify files in `.contexts/` - it exists only for reference.
+**Important:** Never modify files in `scratchpad/contexts/` - it exists only for reference.
 
-### `.plans/` - Copilot Scratchpad
+### `scratchpad/agents/` - Agent Workspace
 
-A workspace for Copilot to create:
+A workspace for agents to create:
 - Implementation plans and notes
 - Design documents
 - Research summaries
 - Any working documents that shouldn't be in git history
-
-Both directories are gitignored automatically.
 
 ## Prerequisites
 

@@ -1,4 +1,4 @@
-# Copilot Instructions
+# Agent Instructions
 
 This repository implements **{{SPEC_ID}}: {{SPEC_TITLE}}**.
 
@@ -14,23 +14,25 @@ You MUST read and understand:
    - Contains coding standards and conventions to follow
    - All implementations MUST comply with these standards
 
-3. **Spec Dependencies** (if any): `.contexts/`
+3. **Spec Dependencies** (if any): `scratchpad/contexts/`
    - Contains shallow clones of repos that implement specs this project depends on
    - Use these to understand APIs, data formats, or services you're integrating with
-   - **NEVER write to `.contexts/`** - it is read-only reference material
+   - **NEVER write to `scratchpad/contexts/`** - it is read-only reference material
 
-## Special Directories
+## Scratchpad Directory
 
-### `.contexts/` - Read-Only Reference
+The `scratchpad/` directory is gitignored and contains two subdirectories:
+
+### `scratchpad/contexts/` - Read-Only Reference
 
 This directory contains cloned repositories from spec dependencies. Use it to:
 - Understand the API contracts you're consuming
 - Reference implementation patterns from dependent specs
 - Look up data structures and interfaces
 
-**IMPORTANT:** NEVER modify files in `.contexts/`. It exists only for understanding what you're implementing against.
+**IMPORTANT:** NEVER modify files in `scratchpad/contexts/`. It exists only for understanding what you're implementing against.
 
-### `.plans/` - Your Scratchpad
+### `scratchpad/agents/` - Your Workspace
 
 This directory is your workspace for:
 - Implementation plans and notes
@@ -38,7 +40,7 @@ This directory is your workspace for:
 - Summaries of research or analysis
 - Any working documents that shouldn't be in git history
 
-Use `.plans/` freely for any documents you create during implementation. These files are gitignored and won't pollute the repository history.
+Use `scratchpad/agents/` freely for any documents you create during implementation. These files are gitignored and won't pollute the repository history.
 
 ## Implementation Workflow
 

@@ -51,7 +51,7 @@ Building a multi-service system where the Order Service depends on the User Serv
 
 **You'll see:**
 - Specs with dependency declarations
-- How `.contexts/` provides API references
+- How `scratchpad/contexts/` provides API references
 - Building services in the right order
 
 ### [Standards](standards/)

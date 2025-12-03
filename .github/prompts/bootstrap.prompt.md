@@ -144,7 +144,7 @@ Use GitHub MCP to check if the repository exists.
 
    **.gitignore** (from `templates/gitignore.template`):
    - Replace `{{STANDARDS_GITIGNORE}}` with aggregated gitignore entries from standards
-   - Always includes `.contexts/` and `.plans/` directories
+   - Always includes `scratchpad/` directory
 
    **.vscode/mcp.json** (from `templates/mcp.json.template`):
    - Copy as-is (no variables to replace)

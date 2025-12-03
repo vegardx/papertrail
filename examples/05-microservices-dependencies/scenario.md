@@ -158,7 +158,7 @@ Now we create the Order Service, which needs to call the User Service API.
 Found SPEC-0002: User Service with implementations:
 - github/user-service
 
-I'll add this to the Spec Dependencies section. When you bootstrap, the user-service repo will be cloned into `.contexts/` for reference.
+I'll add this to the Spec Dependencies section. When you bootstrap, the user-service repo will be cloned into `scratchpad/contexts/` for reference.
 
 ---
 
@@ -209,7 +209,7 @@ Found spec: **SPEC-0003: Order Service**
 | github/order-service | new | Create |
 
 ### Dependency Handling
-The following repos will be cloned into `.contexts/` for API reference:
+The following repos will be cloned into `scratchpad/contexts/` for API reference:
 - github/user-service (implements SPEC-0002)
 
 **Do you want me to proceed?**
@@ -220,8 +220,8 @@ The following repos will be cloned into `.contexts/` for API reference:
 
 *[Creates repo, scaffolds files...]*
 
-Cloning dependency into `.contexts/`:
-- Shallow cloning github/user-service → .contexts/user-service/
+Cloning dependency into `scratchpad/contexts/`:
+- Shallow cloning github/user-service → scratchpad/contexts/user-service/
 
 ---
 
@@ -233,31 +233,32 @@ Cloning dependency into `.contexts/`:
 ### Files Scaffolded
 - README.md
 - AGENTS.md
-- .gitignore (includes `.contexts/`)
+- .gitignore (includes `scratchpad/`)
 - .vscode/mcp.json
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md
 - .github/standards/STD-0001-go-services.md
 
-### Dependencies in .contexts/
-- `.contexts/user-service/` - User Service code for API reference
+### Dependencies in scratchpad/contexts/
+- `scratchpad/contexts/user-service/` - User Service code for API reference
 
 ### Next Steps
 1. Open `github/order-service` in VS Code
 2. Run `/plan` to create issues
-3. Reference `.contexts/user-service/` when implementing user validation
+3. Reference `scratchpad/contexts/user-service/` when implementing user validation
 
 ---
 
 ## Part 3: How Dependencies Work in Practice
 
-When implementing the Order Service, here's what `.contexts/` provides:
+When implementing the Order Service, here's what `scratchpad/contexts/` provides:
 
 ```
 github/order-service/
-├── .contexts/
-│   └── user-service/           # Shallow clone of user-service
+├── scratchpad/
+│   └── contexts/
+│       └── user-service/       # Shallow clone of user-service
 │       ├── api/
 │       │   └── openapi.yaml    # User API specification
 │       ├── pkg/
@@ -272,11 +273,11 @@ github/order-service/
 ```
 
 When you run `/implement` on the "User validation" requirement, Copilot can:
-1. Read the User Service's OpenAPI spec from `.contexts/user-service/api/openapi.yaml`
-2. See how the Go client is structured in `.contexts/user-service/pkg/client/`
+1. Read the User Service's OpenAPI spec from `scratchpad/contexts/user-service/api/openapi.yaml`
+2. See how the Go client is structured in `scratchpad/contexts/user-service/pkg/client/`
 3. Generate correct API calls that match the actual interface
 
-**Important:** Files in `.contexts/` are read-only reference. Never modify them—they're just for understanding the APIs you depend on.
+**Important:** Files in `scratchpad/contexts/` are read-only reference. Never modify them—they're just for understanding the APIs you depend on.
 
 ---
 
@@ -328,7 +329,7 @@ SPEC-0002 has implementations:
 - SPEC-0002: User Service → github/user-service
 
 ### Dependency Handling
-The following repos will be cloned into `.contexts/`:
+The following repos will be cloned into `scratchpad/contexts/`:
 - github/order-service (for event schemas)
 - github/user-service (for user lookup API)
 
@@ -358,12 +359,12 @@ papertrail/
 ```
 
 ```
-github/user-service/           # Foundation - no .contexts/
+github/user-service/           # Foundation - no scratchpad/contexts/
 github/order-service/
-└── .contexts/
+└── scratchpad/contexts/
     └── user-service/          # API reference
 github/notification-service/
-└── .contexts/
+└── scratchpad/contexts/
     ├── order-service/         # Event schemas
     └── user-service/          # User lookup API
 ```

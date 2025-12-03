@@ -161,7 +161,7 @@ pending → paid → shipped → delivered
 |------|---------|----------------|
 | SPEC-0002 | User validation API | github/user-service |
 
-When implementing, reference `.contexts/user-service/` for:
+When implementing, reference `scratchpad/contexts/user-service/` for:
 - API contract (OpenAPI spec)
 - JWT validation approach
 - Error response formats
