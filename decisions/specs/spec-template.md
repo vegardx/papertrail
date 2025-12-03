@@ -32,17 +32,61 @@ This specification implements [PROP-NNNN: {Proposal title}](../proposals/PROP-NN
 * {Non-goal 1: What is explicitly out of scope}
 * {Non-goal 2}
 
+## Technology
+
+### Language & Runtime
+
+* **Language:** {e.g., TypeScript 5.x, Go 1.21, Python 3.12}
+* **Runtime:** {e.g., Node.js 20 LTS, Deno 2.x}
+
+### Frameworks
+
+* **Primary Framework:** {e.g., Docusaurus 3.x, Express 4.x, FastAPI}
+* **Build Tool:** {e.g., npm, pnpm, Make}
+
+### Key Libraries
+
+* {Library 1}: {purpose, e.g., "Algolia DocSearch - search functionality"}
+* {Library 2}: {purpose}
+
+### File Structure
+
+```
+{project root}
+├── {directory}/     # {purpose}
+│   ├── {subdirectory}/
+│   └── {file}
+├── {directory}/     # {purpose}
+├── {config-file}    # {purpose}
+└── {config-file}    # {purpose}
+```
+
 ## Requirements
 
 ### Requirement: {requirement name}
 
 {System | Component | Service} SHALL/MUST {clear, testable requirement statement}.
 
+**Configuration:**
+* `{config-file}` SHALL {specific configuration requirement}
+* `{config-file}` SHALL {another configuration requirement}
+
+**Behavior:**
+* {Specific behavior with measurable criteria}
+* {Another behavior with measurable criteria}
+
+**Files:**
+| Action | Path | Purpose |
+|--------|------|---------|
+| Create | `{path/to/file}` | {What this file does} |
+| Create | `{path/to/file}` | {What this file does} |
+
 #### Scenario: {scenario name}
 
 **GIVEN** {precondition or initial context}
 **WHEN** {action or trigger}
 **THEN** {expected outcome or behavior}
+**AND** {additional verifiable outcome}
 
 #### Scenario: {alternative scenario name}
 
@@ -53,6 +97,14 @@ This specification implements [PROP-NNNN: {Proposal title}](../proposals/PROP-NN
 ### Requirement: {another requirement name}
 
 {System | Component | Service} SHALL/MUST {clear, testable requirement statement}.
+
+**Configuration:**
+* {Specific configuration requirements}
+
+**Files:**
+| Action | Path | Purpose |
+|--------|------|---------|
+| Create | `{path/to/file}` | {What this file does} |
 
 #### Scenario: {scenario name}
 
