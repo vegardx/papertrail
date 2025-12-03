@@ -73,11 +73,11 @@ You MUST read and understand:
 
 ## Scratchpad Directory
 
-The `scratchpad/` directory is gitignored and contains two subdirectories:
+The `scratchpad/` directory is gitignored and you are free to create and use it as needed. It can contain two subdirectories:
 
 ### `scratchpad/contexts/` - Read-Only Reference
 
-This directory contains cloned repositories from spec dependencies. If any, use it to:
+This directory may contain cloned repositories from spec dependencies. If present, use it to:
 - Understand the API contracts you're consuming
 - Reference implementation patterns from dependent specs
 - Look up data structures and interfaces
@@ -86,13 +86,13 @@ This directory contains cloned repositories from spec dependencies. If any, use 
 
 ### `scratchpad/agents/` - Your Workspace
 
-This directory is your workspace for:
+Create and use this directory freely as a dumping ground for:
 - Implementation plans and notes
 - Design documents and diagrams
 - Summaries of research or analysis
 - Any working documents that shouldn't be in git history
 
-Use `scratchpad/agents/` freely for any documents you create during implementation. These files are gitignored and won't pollute the repository history.
+These files are gitignored and won't pollute the repository history.
 
 ## Implementation Workflow
 
