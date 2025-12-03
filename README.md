@@ -1,6 +1,8 @@
 # Papertrail
 
-A documentation repository for Proposals, technical specifications, and engineering standards—with automated workflows to bootstrap implementing repositories.
+A documentation framework for Proposals, technical specifications, and engineering standards—with automated workflows to bootstrap implementing repositories.
+
+**Fully supported in both VS Code with GitHub Copilot and Claude Code.**
 
 ## Whaaaat?
 
