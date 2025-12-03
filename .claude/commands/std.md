@@ -77,7 +77,25 @@ Ask how the standard will be enforced:
 - Manual review (PR checklists)
 - Exception process
 
-### Step 5: Generate the Standard
+### Step 5: Define Scaffold (for /init)
+
+Ask the user what files and directories should be created when `/init` is run in a new repository:
+
+1. **Directories**
+   - "What directories should be created?" (e.g., `src/`, `tests/`, `docs/`)
+   
+2. **Files with content**
+   - "What configuration files should be created with default content?"
+   - Examples: `tsconfig.json`, `.prettierrc`, `Makefile`, `go.mod`
+   - For each file, gather the default content
+
+3. **Gitignore patterns**
+   - "What patterns should be added to .gitignore?"
+   - Examples: `node_modules/`, `dist/`, `*.exe`, `vendor/`
+
+These will be added to the standard's frontmatter under `scaffold:` and `gitignore:` fields.
+
+### Step 6: Generate the Standard
 
 Once you have sufficient information:
 
@@ -108,6 +126,8 @@ The final standard must include:
   - applies-to (scope)
   - authors
   - reviewers
+  - gitignore (list of patterns)
+  - scaffold (directories and files for /init)
 - Clear scope definition (applies to / does not apply to)
 - Requirements organized by category with MUST/SHOULD/MAY
 - At least one compliant example

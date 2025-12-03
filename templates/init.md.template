@@ -6,7 +6,8 @@ The `/init` command ensures the repository follows all applicable standards by:
 1. Reading standards from `.github/standards/`
 2. Creating or updating `.gitignore` based on standard requirements
 3. Creating or updating `.mcp.json` for GitHub integration
-4. Setting up any directory structure required by standards
+4. Creating directories specified in standards' `scaffold.directories`
+5. Creating files specified in standards' `scaffold.files`
 
 This command is idempotent - running it multiple times will only make necessary updates.
 
@@ -15,10 +16,10 @@ This command is idempotent - running it multiple times will only make necessary 
 ### Step 1: Read Applicable Standards
 
 1. List all files in `.github/standards/`
-2. For each standard file:
-   - Parse the YAML frontmatter
-   - Extract the `gitignore` field (list of patterns)
-   - Note any directory structure requirements from the standard body
+2. For each standard file, parse the YAML frontmatter and extract:
+   - `gitignore` - List of patterns to add to .gitignore
+   - `scaffold.directories` - List of directories to create
+   - `scaffold.files` - List of files with their content to create
 
 ### Step 2: Aggregate Gitignore Patterns
 
@@ -86,22 +87,54 @@ Ensure `.mcp.json` exists with GitHub MCP configuration:
 **If `.mcp.json` does not exist:**
 1. Create the file with the default configuration
 
-### Step 5: Set Up Directory Structure
+### Step 5: Create Directories from Standards
 
-Based on standards, ensure required directories exist:
+For each standard's `scaffold.directories` array:
 
-1. Read each standard for directory structure requirements (typically in "Repository Structure" sections)
-2. Create any missing directories
-3. Add `.gitkeep` files to empty directories that should be tracked
+1. Check if the directory already exists
+2. If not, create the directory
+3. Add a `.gitkeep` file to empty directories so they're tracked by git
 
-Common directories to consider:
-- `src/` - Source code
-- `tests/` - Test files
-- `docs/` - Documentation (if required by standard)
+Example from a standard's frontmatter:
+```yaml
+scaffold:
+  directories:
+    - src/
+    - tests/
+    - docs/
+```
 
-**Note:** Only create directories explicitly required by standards. Don't create optional structures.
+### Step 6: Create Files from Standards
 
-### Step 6: Report Summary
+For each standard's `scaffold.files` array:
+
+1. Check if the file already exists
+2. **If the file does NOT exist:** Create it with the specified content
+3. **If the file DOES exist:** Skip it (don't overwrite user modifications)
+
+Example from a standard's frontmatter:
+```yaml
+scaffold:
+  files:
+    - path: tsconfig.json
+      content: |
+        {
+          "compilerOptions": {
+            "strict": true,
+            "target": "ES2020"
+          }
+        }
+    - path: .prettierrc
+      content: |
+        {
+          "semi": true,
+          "singleQuote": true
+        }
+```
+
+**Important:** Never overwrite existing files. The scaffold files are meant as starting points, and users may have customized them.
+
+### Step 7: Report Summary
 
 Present a summary of what was done:
 
@@ -118,12 +151,15 @@ Present a summary of what was done:
 |------|--------|---------|
 | .gitignore | {created/updated} | {X patterns from Y standards} |
 | .mcp.json | {created/updated/unchanged} | GitHub MCP configured |
+| tsconfig.json | created | From STD-NNNN |
+| .prettierrc | skipped | Already exists |
 
 ### Directories Created
-- {list any directories created, or "None"}
+- src/
+- tests/
 
 ### Next Steps
-- Review the generated `.gitignore` and add any project-specific patterns under "# Project-specific ignores"
+- Review the generated files and customize as needed
 - Run `/plan` to create issues from the spec
 ```
 
@@ -156,6 +192,12 @@ If the same pattern appears in multiple standards:
 - Include it once
 - Attribute to the first standard that defines it
 
+### Conflicting Scaffold Files
+
+If multiple standards define the same file path:
+- Use the content from the first standard encountered
+- Log a warning: "Warning: {path} defined in multiple standards, using definition from STD-NNNN"
+
 ## Example Session
 
 **User:** /init
@@ -168,21 +210,19 @@ Found 2 standards:
 - STD-0001: Go Services
 - STD-0002: TypeScript Libraries
 
-*[Extracts gitignore patterns]*
+*[Extracts configuration from frontmatter]*
 
-STD-0001 specifies:
-- `bin/`
-- `vendor/`
-- `*.exe`
+**STD-0001: Go Services**
+- gitignore: `bin/`, `vendor/`, `*.exe`
+- directories: `cmd/`, `internal/`, `pkg/`
+- files: `go.mod`, `Makefile`
 
-STD-0002 specifies:
-- `node_modules/`
-- `dist/`
-- `coverage/`
-- `.turbo/`
-- `*.tsbuildinfo`
+**STD-0002: TypeScript Libraries**
+- gitignore: `node_modules/`, `dist/`, `coverage/`, `.turbo/`, `*.tsbuildinfo`
+- directories: `src/`, `tests/`
+- files: `tsconfig.json`, `package.json`, `.prettierrc`
 
-*[Creates .gitignore]*
+*[Creates .gitignore, .mcp.json, directories, and files]*
 
 ## Initialization Complete
 
@@ -194,12 +234,21 @@ STD-0002 specifies:
 
 | File | Action | Details |
 |------|--------|---------|
-| .gitignore | created | 9 patterns from 2 standards |
+| .gitignore | created | 8 patterns from 2 standards |
 | .mcp.json | created | GitHub MCP configured |
+| go.mod | created | From STD-0001 |
+| Makefile | created | From STD-0001 |
+| tsconfig.json | created | From STD-0002 |
+| package.json | created | From STD-0002 |
+| .prettierrc | created | From STD-0002 |
 
 ### Directories Created
-- None
+- cmd/
+- internal/
+- pkg/
+- src/
+- tests/
 
 ### Next Steps
-- Review the generated `.gitignore` and add any project-specific patterns under "# Project-specific ignores"
+- Review the generated files and customize as needed
 - Run `/plan` to create issues from the spec

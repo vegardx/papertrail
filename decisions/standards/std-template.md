@@ -7,6 +7,17 @@ reviewers: {list of people who reviewed this standard}
 gitignore:
   - "{optional: paths or patterns to add to .gitignore, e.g., node_modules/}"
   - "{optional: another pattern, e.g., dist/}"
+scaffold:
+  directories:
+    - "{optional: directories to create, e.g., src/}"
+    - "{optional: another directory, e.g., tests/}"
+  files:
+    - path: "{optional: file path, e.g., tsconfig.json}"
+      content: |
+        {optional: file content as literal block}
+    - path: "{optional: another file, e.g., .prettierrc}"
+      content: |
+        {optional: file content}
 ---
 
 # {short title describing the standard}

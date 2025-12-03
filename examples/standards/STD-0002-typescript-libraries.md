@@ -12,6 +12,62 @@ gitignore:
   - "coverage/"
   - ".turbo/"
   - "*.tsbuildinfo"
+scaffold:
+  directories:
+    - "src/"
+    - "tests/"
+  files:
+    - path: "tsconfig.json"
+      content: |
+        {
+          "compilerOptions": {
+            "strict": true,
+            "noUncheckedIndexedAccess": true,
+            "noImplicitOverride": true,
+            "exactOptionalPropertyTypes": true,
+            "declaration": true,
+            "declarationMap": true,
+            "sourceMap": true,
+            "target": "ES2020",
+            "module": "NodeNext",
+            "moduleResolution": "NodeNext",
+            "outDir": "dist",
+            "rootDir": "src"
+          },
+          "include": ["src/**/*"],
+          "exclude": ["node_modules", "dist"]
+        }
+    - path: "vitest.config.ts"
+      content: |
+        import { defineConfig } from 'vitest/config';
+
+        export default defineConfig({
+          test: {
+            globals: true,
+            coverage: {
+              provider: 'v8',
+              reporter: ['text', 'json', 'html'],
+              thresholds: {
+                statements: 80,
+                branches: 80,
+                functions: 80,
+                lines: 80,
+              },
+            },
+          },
+        });
+    - path: ".prettierrc"
+      content: |
+        {
+          "semi": true,
+          "singleQuote": true,
+          "trailingComma": "es5",
+          "printWidth": 100
+        }
+    - path: "src/index.ts"
+      content: |
+        // Export your public API here
+        export {};
 ---
 
 # STD-0002: TypeScript Libraries
