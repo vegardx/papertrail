@@ -1,5 +1,7 @@
 # Agent Instructions
 
+This repository is **papertrail** - tooling that bootstraps and manages spec-driven repositories.
+
 ## Shell Commands
 
 - Use `git --no-pager` for all git commands that produce output (diff, log, show, branch)
@@ -82,7 +84,8 @@ Use `scratchpad/agents/` freely for any documents you create during implementati
 Before committing, check if the changes should be documented in CHANGELOG.md:
 
 - **feat:** Add to "Added" section
-- **fix:** Add to "Fixed" section  
+- **fix:** Add to "Fixed" section
+- **perf:** Add to "Performance" section
 - **refactor!:** or any breaking change: Add to "Breaking Changes" section
 - **deprecation:** Add to "Deprecated" section
 - **removal:** Add to "Removed" section
@@ -137,6 +140,10 @@ Follow conventional commit format:
 - `fix:` bug fixes
 - `refactor:` code changes that don't add features or fix bugs
 - `docs:` documentation changes
+- `test:` test-only changes
+- `perf:` performance improvements
+- `ci:` CI/CD changes
+- `build:` build system changes
 - `chore:` maintenance tasks (dependencies, tooling, etc.)
 
 ### Breaking Changes
