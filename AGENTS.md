@@ -16,6 +16,37 @@ If anything is unclear or ambiguous:
 - Provide suggestions or options when asking (don't just ask open-ended questions)
 - Example: "Should I use approach A (faster, less flexible) or approach B (slower, more extensible)?"
 
+### Multiple Tasks
+
+When the user requests multiple tasks:
+1. Create a todo list of all tasks
+2. Present the list to the user and ask if they want to proceed
+3. Work through tasks sequentially, marking each as complete
+4. Keep the user informed of progress
+
+Example:
+```
+## Task List
+
+1. [ ] Add user validation endpoint
+2. [ ] Update database schema
+3. [ ] Add tests for new endpoint
+4. [ ] Update API documentation
+
+Shall I proceed with these tasks in order?
+```
+
+## Documentation
+
+### Keep README.md Updated
+
+After implementing changes, always check if the README.md needs updating:
+- New features should be documented
+- Changed behavior should be reflected
+- Installation or usage instructions may need updates
+
+If updates are needed, propose a plan of changes to be added to the README.md before making them.
+
 ## Scratchpad Directory
 
 The `scratchpad/` directory is gitignored and contains two subdirectories:
