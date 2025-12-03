@@ -73,7 +73,75 @@ Once you have sufficient information:
    - If a file with a very similar name exists, warn: "A proposal with a similar name already exists: {existing file}. Would you like to: A) Use a different title, B) Review the existing proposal first, or C) Continue with the current title?"
 5. Generate the complete Proposal following the template exactly
 6. Propose a filename: `decisions/proposals/PROP-NNNN-short-title-with-dashes.md`
-7. Ask if the user wants you to create the file
+7. Ask if the user wants you to create the file and open a PR for review
+
+### Step 4: Create Branch and Pull Request
+
+After the user confirms:
+
+1. **Create a branch** for the proposal:
+   ```bash
+   git checkout -b propose/PROP-NNNN-short-title
+   ```
+
+2. **Write the proposal file** to `decisions/proposals/PROP-NNNN-short-title.md`
+
+3. **Commit the proposal**:
+   ```bash
+   git add decisions/proposals/PROP-NNNN-short-title.md
+   git commit -m "docs: add proposal PROP-NNNN - short title"
+   ```
+
+4. **Push the branch**:
+   ```bash
+   git push -u origin propose/PROP-NNNN-short-title
+   ```
+
+5. **Create a Pull Request** using GitHub CLI:
+   ```bash
+   gh pr create --draft --title "PROP-NNNN: Short Title" --body "..."
+   ```
+
+   **PR Body Template:**
+   ```markdown
+   ## Proposal: PROP-NNNN
+
+   {One-paragraph summary of the problem and recommended solution}
+
+   ## Review Checklist
+
+   - [ ] Problem statement is clear and well-defined
+   - [ ] Goals are measurable and achievable
+   - [ ] Options have been fairly evaluated
+   - [ ] Recommendation is justified
+
+   ## How to Review
+
+   1. Read the proposal in `decisions/proposals/PROP-NNNN-short-title.md`
+   2. Comment on the PR with questions or concerns
+   3. Approve the PR when ready
+
+   ## Decision
+
+   - **Merge** this PR to approve the proposal
+   - **Close** this PR to reject the proposal
+
+   ---
+
+   /cc {reviewers from proposal frontmatter}
+   ```
+
+6. **Report success** to the user:
+   ```
+   Created PR #XX for PROP-NNNN: Short Title
+   
+   URL: https://github.com/{org}/{repo}/pull/XX
+   
+   Next steps:
+   - Share the PR with reviewers for discussion
+   - Merge the PR to approve the proposal
+   - Once approved, use /spec to create a specification
+   ```
 
 ## Conversation Guidelines
 
