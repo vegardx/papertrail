@@ -1,6 +1,0 @@
-# Scratchpad - agent working directory
-# Contains contexts/ (cloned dependency repos) and agents/ (working documents)
-scratchpad/
-
-# Standards-specific ignores
-{{STANDARDS_GITIGNORE}}

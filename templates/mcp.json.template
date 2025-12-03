@@ -1,8 +1,0 @@
-{
-  "servers": {
-    "github": {
-      "type": "http",
-      "url": "${COPILOT_MCP_URL:-https://copilot-api.dnb.ghe.com/mcp}"
-    }
-  }
-}

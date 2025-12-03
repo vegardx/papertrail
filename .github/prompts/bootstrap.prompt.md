@@ -30,11 +30,11 @@ The bootstrap process:
 
 All templates are in the `templates/` directory:
 - `README.md.template`
-- `mcp.json.template`
-- `gitignore.template`
 - `AGENTS.md.template`
 - `implement.prompt.md.template`
 - `plan.prompt.md.template`
+- `init.prompt.md.template` - For the `/init` command in bootstrapped repos
+- `init.md.template` - Claude Code version of `/init`
 
 ## Template Variables
 
@@ -53,7 +53,7 @@ When processing templates, replace these placeholders:
 
   - [SPEC-0001-EXT-0001: Enhanced Monitoring](.github/spec/extensions/SPEC-0001-EXT-0001-enhanced-monitoring.md)
   ```
-- `{{STANDARDS_GITIGNORE}}` - Aggregated gitignore entries from all applicable standards
+
 
 ## Your Process
 
@@ -85,8 +85,6 @@ Look for extension files matching `SPEC-{ID}-EXT-*.md` in `decisions/specs/`:
 2. Check `decisions/standards/` for standards that apply based on:
    - The `applies-to` field in standard frontmatter
    - Explicit references in the spec or extensions
-3. For each applicable standard, extract the `gitignore` field from frontmatter (if present)
-4. Aggregate all gitignore entries for use in the `.gitignore` template
 
 ### Step 4: Present Summary and Confirm
 
@@ -108,8 +106,7 @@ Before making any changes, present a summary of what will be done:
 ### Files to Scaffold (for new repos)
 - README.md
 - AGENTS.md
-- .gitignore
-- .mcp.json
+- .github/prompts/init.prompt.md (and .claude/commands/init.md)
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md
@@ -148,16 +145,15 @@ Check if the repository exists using GitHub MCP or GitHub CLI:
    - Replace all template variables
    - Include extensions list if any exist
 
-   **.gitignore** (from `templates/gitignore.template`):
-   - Replace `{{STANDARDS_GITIGNORE}}` with aggregated gitignore entries from standards
-   - Always includes `scratchpad/` directory
-
-   **.mcp.json** (from `templates/mcp.json.template`):
-   - Copy as-is (no variables to replace)
-
    **AGENTS.md** (from `templates/AGENTS.md.template`):
    - Replace template variables
    - Place in repository root
+
+   **.github/prompts/init.prompt.md** (from `templates/init.prompt.md.template`):
+   - Copy as-is (no variables to replace)
+
+   **.claude/commands/init.md** (from `templates/init.md.template`):
+   - Copy as-is (no variables to replace)
 
    **.github/prompts/implement.prompt.md** (from `templates/implement.prompt.md.template`):
    - Replace template variables
@@ -174,7 +170,7 @@ Check if the repository exists using GitHub MCP or GitHub CLI:
    **.github/standards/{STD-NNNN-name}.md** (for each applicable standard):
    - Copy each standard file
 
-3. **Report success** and instruct user to run `/plan` in the new repo
+3. **Report success** and instruct user to run `/init` then `/plan` in the new repo
 
 #### 5c. If Repo ALREADY Exists
 
@@ -208,8 +204,8 @@ After completing all operations, report:
 ### Files Scaffolded
 - README.md
 - AGENTS.md
-- .gitignore
-- .mcp.json
+- .github/prompts/init.prompt.md
+- .claude/commands/init.md
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md
@@ -217,9 +213,10 @@ After completing all operations, report:
 - .github/standards/{list of standards}
 
 ### Next Steps
-1. Open the repository in VS Code
-2. Run `/plan` to create issues from the spec
-3. Use `/implement` to start working on issues
+1. Open the repository in VS Code or Claude Code
+2. Run `/init` to set up .gitignore and .mcp.json based on standards
+3. Run `/plan` to create issues from the spec
+4. Use `/implement` to start working on issues
 ```
 
 ## Error Handling
@@ -266,8 +263,8 @@ Repository `github/runner-infra` does not exist. I'll create it now.
 ### Files Scaffolded
 - README.md
 - AGENTS.md
-- .gitignore
-- .mcp.json
+- .github/prompts/init.prompt.md
+- .claude/commands/init.md
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md
@@ -276,6 +273,7 @@ Repository `github/runner-infra` does not exist. I'll create it now.
 - .github/standards/STD-0002-typescript-libraries.md
 
 ### Next Steps
-1. Open `github/runner-infra` in VS Code
-2. Run `/plan` to create issues from the spec (includes extension)
-3. Use `/implement` to start working on issues
+1. Open `github/runner-infra` in VS Code or Claude Code
+2. Run `/init` to set up .gitignore and .mcp.json based on standards
+3. Run `/plan` to create issues from the spec (includes extension)
+4. Use `/implement` to start working on issues
