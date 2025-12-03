@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - 3-level hierarchy: Epic → Phase → Task
   - Named phases: Setup, Foundation, Requirements, Polish
   - Detailed task issues with implementation steps and file paths
+- `/implement` now checks spec dependencies are up to date before starting work:
+  - Verifies `scratchpad/contexts/` repos match remote HEAD
+  - Automatically updates outdated dependencies
+  - Warns user when dependencies were updated
 
 ### Changed
 

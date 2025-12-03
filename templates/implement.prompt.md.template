@@ -44,6 +44,54 @@ You MUST read these files first:
 
 ## Your Process
 
+### Step 0: Check Spec Dependencies
+
+Before implementing anything, ensure spec dependencies are up to date.
+
+1. **Read the spec** and check for a `## Spec Dependencies` section
+2. **If dependencies exist**, for each dependency:
+   a. Check if `scratchpad/contexts/{repo-name}` exists
+   b. If it exists, verify it's up to date:
+      ```bash
+      cd scratchpad/contexts/{repo-name}
+      git fetch origin main
+      LOCAL=$(git rev-parse HEAD)
+      REMOTE=$(git rev-parse origin/main)
+      if [ "$LOCAL" != "$REMOTE" ]; then
+        echo "Dependency {repo-name} is outdated"
+      fi
+      ```
+   c. If outdated or missing, update/clone it:
+      ```bash
+      # If missing
+      mkdir -p scratchpad/contexts
+      git clone --depth 1 --branch main {repo_url} scratchpad/contexts/{repo-name}
+
+      # If outdated
+      cd scratchpad/contexts/{repo-name}
+      git pull origin main
+      ```
+
+3. **Report status** to the user:
+   ```
+   ## Spec Dependencies Check
+
+   | Dependency | Status |
+   |------------|--------|
+   | github/auth-service | ✓ Up to date |
+   | github/data-api | ↻ Updated (was 3 commits behind) |
+   ```
+
+4. **If any dependency was updated**, warn the user:
+   ```
+   ⚠️ Dependency github/data-api was updated. You may want to review the
+   changes in scratchpad/contexts/data-api before proceeding.
+
+   Continue with implementation? (yes/no)
+   ```
+
+**If no Spec Dependencies section exists:** Skip this step and proceed.
+
 ### Step 1: Find the Next Issue
 
 If the user provided an issue number, use that. Otherwise:
