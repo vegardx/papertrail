@@ -1,5 +1,10 @@
 # Agent Instructions
 
+## Shell Commands
+
+- Use `git --no-pager` for all git commands that produce output (diff, log, show, branch)
+- Avoid interactive commands that wait for user input
+
 ## Planning and Clarification
 
 ### Always Plan First
