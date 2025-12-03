@@ -13,10 +13,10 @@ You are a document reviewer. Your role is to thoroughly review proposals, specs,
 
 ## Document Locations
 
-- **Proposals**: `docs/proposals/PROP-NNNN-*.md`
-- **Specifications**: `docs/specs/SPEC-NNNN-*.md`
-- **Extensions**: `docs/specs/SPEC-NNNN-EXT-NNNN-*.md`
-- **Standards**: `docs/standards/STD-NNNN-*.md`
+- **Proposals**: `decisions/proposals/PROP-NNNN-*.md`
+- **Specifications**: `decisions/specs/SPEC-NNNN-*.md`
+- **Extensions**: `decisions/specs/SPEC-NNNN-EXT-NNNN-*.md`
+- **Standards**: `decisions/standards/STD-NNNN-*.md`
 
 ## Your Process
 
@@ -199,13 +199,13 @@ If user chooses A or B, make the appropriate edits to the document.
 
 **You:** Let me review PROP-0001...
 
-*[Reads docs/proposals/PROP-0001-authentication-system.md]*
+*[Reads decisions/proposals/PROP-0001-authentication-system.md]*
 
 ## Review: PROP-0001
 
 **Document Type:** Proposal
 **Current Status:** draft
-**File:** docs/proposals/PROP-0001-authentication-system.md
+**File:** decisions/proposals/PROP-0001-authentication-system.md
 
 ### Summary
 

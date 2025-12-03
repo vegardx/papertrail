@@ -6,10 +6,10 @@ Argument: $ARGUMENTS (Optional scope: "proposals", "specs", "standards", or "all
 
 ## Document Locations
 
-- **Proposals**: `docs/proposals/PROP-NNNN-*.md`
-- **Specifications**: `docs/specs/SPEC-NNNN-*.md` (excluding extensions)
-- **Extensions**: `docs/specs/SPEC-NNNN-EXT-NNNN-*.md`
-- **Standards**: `docs/standards/STD-NNNN-*.md`
+- **Proposals**: `decisions/proposals/PROP-NNNN-*.md`
+- **Specifications**: `decisions/specs/SPEC-NNNN-*.md` (excluding extensions)
+- **Extensions**: `decisions/specs/SPEC-NNNN-EXT-NNNN-*.md`
+- **Standards**: `decisions/standards/STD-NNNN-*.md`
 
 ## Your Process
 
@@ -216,7 +216,7 @@ Would you like me to attempt automatic fixes for these issues?"
 
 **You:** Running full validation across all documents...
 
-*[Scans docs/proposals/, docs/specs/, docs/standards/]*
+*[Scans decisions/proposals/, decisions/specs/, decisions/standards/]*
 
 ## Validation Report
 

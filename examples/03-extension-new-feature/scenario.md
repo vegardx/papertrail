@@ -82,11 +82,11 @@ Cons: Multiple systems to manage, harder to get unified view
 
 ---
 
-**Ready to create `docs/proposals/PROP-0002-multi-region-support.md`?**
+**Ready to create `decisions/proposals/PROP-0002-multi-region-support.md`?**
 
 **User:** Yes
 
-**Copilot:** Created `docs/proposals/PROP-0002-multi-region-support.md`
+**Copilot:** Created `decisions/proposals/PROP-0002-multi-region-support.md`
 
 ---
 
@@ -98,7 +98,7 @@ The proposal is approved. Now we need to define the requirements—but instead o
 
 **Copilot:** I'll help you create an extension for SPEC-0001. Let me read the base spec first...
 
-*[Reads docs/specs/SPEC-0001-runner-infrastructure.md]*
+*[Reads decisions/specs/SPEC-0001-runner-infrastructure.md]*
 
 **SPEC-0001: Runner Infrastructure** implements PROP-0001 and has these requirements:
 1. Auto-Scaling
@@ -113,7 +113,7 @@ The proposal is approved. Now we need to define the requirements—but instead o
 
 **Copilot:** Let me find that proposal...
 
-*[Reads docs/proposals/PROP-0002-multi-region-support.md]*
+*[Reads decisions/proposals/PROP-0002-multi-region-support.md]*
 
 Got it, this extension will implement **PROP-0002: Multi-Region Support**.
 
@@ -216,13 +216,13 @@ Statement?
 - **Overridden Requirements:** 0
 
 ### File to Create
-`docs/specs/SPEC-0001-EXT-0002-regional-runners.md`
+`decisions/specs/SPEC-0001-EXT-0002-regional-runners.md`
 
 **Do you want me to create this extension?**
 
 **User:** Yes
 
-**Copilot:** Created `docs/specs/SPEC-0001-EXT-0002-regional-runners.md`
+**Copilot:** Created `decisions/specs/SPEC-0001-EXT-0002-regional-runners.md`
 
 ---
 

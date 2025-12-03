@@ -48,7 +48,7 @@ First, we create the foundation service that others will depend on.
 
 **User:** *[Provides details, recommends building a new Go service]*
 
-**Copilot:** Created `docs/proposals/PROP-0003-user-service.md`
+**Copilot:** Created `decisions/proposals/PROP-0003-user-service.md`
 
 ### Creating the Spec
 
@@ -80,7 +80,7 @@ First, we create the foundation service that others will depend on.
 
 **User:** No, this is the foundation service.
 
-**Copilot:** Created `docs/specs/SPEC-0002-user-service.md`
+**Copilot:** Created `decisions/specs/SPEC-0002-user-service.md`
 
 ### Bootstrapping User Service
 
@@ -110,7 +110,7 @@ Now we create the Order Service, which needs to call the User Service API.
 
 **User:** *[Provides details about order processing, payment integration needs, etc.]*
 
-**Copilot:** Created `docs/proposals/PROP-0004-order-service.md`
+**Copilot:** Created `decisions/proposals/PROP-0004-order-service.md`
 
 ### Creating the Spec with Dependencies
 
@@ -178,7 +178,7 @@ I'll add this to the Spec Dependencies section. When you bootstrap, the user-ser
 
 **User:** Yes
 
-**Copilot:** Created `docs/specs/SPEC-0003-order-service.md`
+**Copilot:** Created `decisions/specs/SPEC-0003-order-service.md`
 
 ### Bootstrapping Order Service
 
@@ -347,7 +347,7 @@ After building all three services:
 
 ```
 papertrail/
-├── docs/
+├── decisions/
 │   ├── proposals/
 │   │   ├── PROP-0003-user-service.md
 │   │   ├── PROP-0004-order-service.md

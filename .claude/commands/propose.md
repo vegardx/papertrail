@@ -7,7 +7,7 @@ Argument: $ARGUMENTS (Brief description of the problem or area to explore)
 ## Reference Template
 
 Use this template as the authoritative structure for the Proposal:
-[Proposal Template](../../docs/proposals/proposal-template.md)
+[Proposal Template](../../decisions/proposals/proposal-template.md)
 
 ## Your Process
 
@@ -15,7 +15,7 @@ Use this template as the authoritative structure for the Proposal:
 
 First, check if the user provided initial context. If they did, acknowledge it and identify what information you already have. If not, start by asking what problem they want to explore.
 
-Before asking questions, read the existing Proposals in `docs/proposals/` to:
+Before asking questions, read the existing Proposals in `decisions/proposals/` to:
 1. Understand the sequential numbering convention (e.g., PROP-0000, PROP-0001, etc.)
 2. See examples of how Proposals are written in this project
 
@@ -66,13 +66,13 @@ Guide the user through these topics, asking ONE question at a time. Be conversat
 Once you have sufficient information:
 
 1. Summarize what you've learned and confirm with the user
-2. Determine the next PROP number by checking existing files in `docs/proposals/` (files are named PROP-NNNN-*.md)
+2. Determine the next PROP number by checking existing files in `decisions/proposals/` (files are named PROP-NNNN-*.md)
 3. Generate a short title slug from the problem/solution (e.g., "authentication-system", "api-versioning")
 4. **Check for naming conflicts:**
-   - Search for existing files with similar titles in `docs/proposals/`
+   - Search for existing files with similar titles in `decisions/proposals/`
    - If a file with a very similar name exists, warn: "A proposal with a similar name already exists: {existing file}. Would you like to: A) Use a different title, B) Review the existing proposal first, or C) Continue with the current title?"
 5. Generate the complete Proposal following the template exactly
-6. Propose a filename: `docs/proposals/PROP-NNNN-short-title-with-dashes.md`
+6. Propose a filename: `decisions/proposals/PROP-NNNN-short-title-with-dashes.md`
 7. Ask if the user wants you to create the file
 
 ## Conversation Guidelines

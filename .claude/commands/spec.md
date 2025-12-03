@@ -7,12 +7,12 @@ Argument: $ARGUMENTS (Proposal reference or description, e.g., "PROP-0001" or "a
 ## Reference Template
 
 Use this template as the authoritative structure for the specification:
-[Spec Template](../../docs/specs/spec-template.md)
+[Spec Template](../../decisions/specs/spec-template.md)
 
 ## Relationship: Proposals and Specs
 
-- **Proposals** (in `docs/proposals/`) capture the "what" and "why" - the problem and potential solutions
-- **Specs** (in `docs/specs/`) define the requirements - what implementations MUST do
+- **Proposals** (in `decisions/proposals/`) capture the "what" and "why" - the problem and potential solutions
+- **Specs** (in `decisions/specs/`) define the requirements - what implementations MUST do
 - **Implementing repos** handle the "how" - actual implementation details
 - One Proposal can have multiple specs (e.g., PROP-0001 might have SPEC-0001 for API and SPEC-0002 for CLI)
 - Specs always reference their parent Proposal and list implementing repositories
@@ -44,9 +44,9 @@ Each requirement needs at least one `#### Scenario:` block using GIVEN/WHEN/THEN
 First, determine which Proposal this spec will implement:
 
 1. Check if the user specified a Proposal (e.g., "PROP-0001" or mentioned a problem/solution)
-2. If not specified, list the existing Proposals in `docs/proposals/` and ask which one to implement
+2. If not specified, list the existing Proposals in `decisions/proposals/` and ask which one to implement
 3. **Validate the Proposal exists:**
-   - Search for the file matching `docs/proposals/PROP-NNNN-*.md`
+   - Search for the file matching `decisions/proposals/PROP-NNNN-*.md`
    - If NOT found, report: "Proposal {PROP-NNNN} does not exist. Available proposals are: {list}. Would you like to create it first using `/propose`?"
    - If found, read the file and continue
 4. Read the referenced Proposal to understand the context and recommended direction
@@ -122,13 +122,13 @@ Guide the user through defining requirements, asking ONE question at a time:
 Once you have sufficient information:
 
 1. Summarize the requirements and confirm with the user
-2. Determine the next SPEC number by checking existing files in `docs/specs/` (files are named SPEC-NNNN-*.md, excluding EXT files)
+2. Determine the next SPEC number by checking existing files in `decisions/specs/` (files are named SPEC-NNNN-*.md, excluding EXT files)
 3. Generate a short title slug from the spec focus (e.g., "oauth-integration", "api-gateway")
 4. **Check for naming conflicts:**
-   - Search for existing files with similar titles in `docs/specs/`
+   - Search for existing files with similar titles in `decisions/specs/`
    - If a file with a very similar name exists, warn: "A specification with a similar name already exists: {existing file}. Would you like to: A) Use a different title, B) Review the existing spec first, or C) Continue with the current title?"
 5. Generate the complete spec following the OpenSpec template exactly
-6. Propose a filename: `docs/specs/SPEC-NNNN-short-title-with-dashes.md`
+6. Propose a filename: `decisions/specs/SPEC-NNNN-short-title-with-dashes.md`
 7. Ask if the user wants you to create the file
 
 ## Conversation Guidelines

@@ -15,7 +15,7 @@ You are a spec extension facilitator. Your role is to help the user create an ex
 ## Reference Template
 
 Use this template as the authoritative structure for the extension:
-[Spec Extension Template](../../docs/specs/spec-extension-template.md)
+[Spec Extension Template](../../decisions/specs/spec-extension-template.md)
 
 ## What Are Extensions?
 
@@ -42,11 +42,11 @@ Extensions follow this pattern:
 
 If the user provided a spec identifier, find it. Otherwise:
 
-1. List all specs in `docs/specs/` (excluding templates and extensions)
+1. List all specs in `decisions/specs/` (excluding templates and extensions)
 2. Ask: "Which spec do you want to extend?"
 
 **Validate the spec exists:**
-- Search for the file matching `docs/specs/SPEC-NNNN-*.md` (not EXT files)
+- Search for the file matching `decisions/specs/SPEC-NNNN-*.md` (not EXT files)
 - If NOT found, report: "Specification {SPEC-NNNN} does not exist. Available specs are: {list}. Would you like to create it first using `/spec`?"
 - If found, read the file and continue
 
@@ -64,9 +64,9 @@ Ask the user:
 - **A different Proposal** - which one?
 
 If different Proposal:
-1. List available Proposals from `docs/proposals/`
+1. List available Proposals from `decisions/proposals/`
 2. **Validate the selected Proposal exists:**
-   - Search for the file matching `docs/proposals/PROP-NNNN-*.md`
+   - Search for the file matching `decisions/proposals/PROP-NNNN-*.md`
    - If NOT found, report: "Proposal {PROP-NNNN} does not exist. Would you like to create it first using `/propose`?"
    - If found, continue
 
@@ -120,7 +120,7 @@ Before generating, present a summary of what will be created:
   {list each requirement name with brief reason}
 
 ### File to Create
-`docs/specs/SPEC-{base}-EXT-{number}-{short-title}.md`
+`decisions/specs/SPEC-{base}-EXT-{number}-{short-title}.md`
 
 Do you want me to create this extension? (yes/no)
 ```
@@ -137,7 +137,7 @@ After user confirms:
 
 2. Generate the extension following the template exactly
 
-3. Create the file at: `docs/specs/SPEC-{base}-EXT-{number}-{short-title}.md`
+3. Create the file at: `decisions/specs/SPEC-{base}-EXT-{number}-{short-title}.md`
 
 ## Conversation Guidelines
 
@@ -210,7 +210,7 @@ Got it, this extension will implement PROP-0003: Multi-Region Deployment.
 
 ## Extension Complete
 
-Created: `docs/specs/SPEC-0001-EXT-0001-multi-region.md`
+Created: `decisions/specs/SPEC-0001-EXT-0001-multi-region.md`
 
 ### Summary
 - **Extends:** SPEC-0001 (Runner Infrastructure)

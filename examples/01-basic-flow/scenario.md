@@ -106,11 +106,11 @@ Cons: Expensive at our scale, less control over security posture, vendor lock-in
 
 ---
 
-**Ready to create `docs/proposals/PROP-0001-runner-infrastructure.md`?**
+**Ready to create `decisions/proposals/PROP-0001-runner-infrastructure.md`?**
 
 **User:** Yes
 
-**Copilot:** Created `docs/proposals/PROP-0001-runner-infrastructure.md`
+**Copilot:** Created `decisions/proposals/PROP-0001-runner-infrastructure.md`
 
 The proposal is ready for review. Once approved, use `/spec PROP-0001` to create the technical specification.
 
@@ -128,7 +128,7 @@ A week later, the proposal has been reviewed and approved. Time to define the re
 
 Let me read the proposal first...
 
-*[Reads docs/proposals/PROP-0001-runner-infrastructure.md]*
+*[Reads decisions/proposals/PROP-0001-runner-infrastructure.md]*
 
 Got it. This spec will define requirements for the GARM-based runner infrastructure.
 
@@ -253,11 +253,11 @@ Statement: *The system SHALL expose metrics for runner utilization and queue dep
 
 ---
 
-**Ready to create `docs/specs/SPEC-0001-runner-infrastructure.md`?**
+**Ready to create `decisions/specs/SPEC-0001-runner-infrastructure.md`?**
 
 **User:** Yes
 
-**Copilot:** Created `docs/specs/SPEC-0001-runner-infrastructure.md`
+**Copilot:** Created `decisions/specs/SPEC-0001-runner-infrastructure.md`
 
 The spec is ready. Use `/bootstrap SPEC-0001` to create the implementing repository.
 
@@ -275,7 +275,7 @@ Time to create the actual repo and start implementing.
 
 Let me read the spec first...
 
-*[Reads docs/specs/SPEC-0001-runner-infrastructure.md]*
+*[Reads decisions/specs/SPEC-0001-runner-infrastructure.md]*
 
 Found spec: **SPEC-0001: Runner Infrastructure**
 

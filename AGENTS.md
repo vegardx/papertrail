@@ -98,7 +98,7 @@ Example:
    - tests/api/users.test.ts
 
 3. docs: update API documentation
-   - docs/api.md
+   - decisions/api.md
 
 Ready to commit? (yes/no/modify)
 ```

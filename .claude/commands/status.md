@@ -6,10 +6,10 @@ Argument: $ARGUMENTS (Optional filter: "draft", "approved", "PROP-0001", etc.)
 
 ## Document Locations
 
-- **Proposals**: `docs/proposals/PROP-NNNN-*.md`
-- **Specifications**: `docs/specs/SPEC-NNNN-*.md`
-- **Extensions**: `docs/specs/SPEC-NNNN-EXT-NNNN-*.md`
-- **Standards**: `docs/standards/STD-NNNN-*.md`
+- **Proposals**: `decisions/proposals/PROP-NNNN-*.md`
+- **Specifications**: `decisions/specs/SPEC-NNNN-*.md`
+- **Extensions**: `decisions/specs/SPEC-NNNN-EXT-NNNN-*.md`
+- **Standards**: `decisions/standards/STD-NNNN-*.md`
 
 ## Your Process
 
@@ -124,7 +124,7 @@ When user specifies a document like "PROP-0001":
 
 ### Document
 
-[View Proposal](docs/proposals/PROP-0001-authentication-system.md)
+[View Proposal](decisions/proposals/PROP-0001-authentication-system.md)
 
 ### Problem Statement
 

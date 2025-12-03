@@ -68,7 +68,7 @@ Example engineering standards that define *how* to build (not *what* to build).
 After all examples, you'd have:
 
 ```
-docs/
+decisions/
 ├── proposals/
 │   ├── PROP-0001-runner-infrastructure.md     # 01
 │   └── PROP-0002-multi-region-support.md      # 03

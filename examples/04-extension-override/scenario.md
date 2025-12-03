@@ -20,7 +20,7 @@ This means the original "Monitoring" requirement in SPEC-0001 needs to change. R
 
 **Copilot:** I'll help you create an extension for SPEC-0001. Let me read the base spec first...
 
-*[Reads docs/specs/SPEC-0001-runner-infrastructure.md]*
+*[Reads decisions/specs/SPEC-0001-runner-infrastructure.md]*
 
 **SPEC-0001: Runner Infrastructure** implements PROP-0001 and has these requirements:
 1. Auto-Scaling
@@ -141,13 +141,13 @@ Let's define the scenarios. **First scenario - Given?**
   - Monitoring → Audit Logging and Metrics (SOC 2 compliance)
 
 ### File to Create
-`docs/specs/SPEC-0001-EXT-0003-audit-logging.md`
+`decisions/specs/SPEC-0001-EXT-0003-audit-logging.md`
 
 **Do you want me to create this extension?**
 
 **User:** Yes
 
-**Copilot:** Created `docs/specs/SPEC-0001-EXT-0003-audit-logging.md`
+**Copilot:** Created `decisions/specs/SPEC-0001-EXT-0003-audit-logging.md`
 
 ---
 

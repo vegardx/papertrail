@@ -120,7 +120,7 @@ Check out the [examples/](examples/) directory for full conversation transcripts
 ## Structure
 
 ```
-├── docs/
+├── decisions/
 │   ├── proposals/       # Proposals (PROP)
 │   │   └── PROP-NNNN-*.md
 │   ├── specs/           # Technical Specifications
@@ -371,10 +371,10 @@ Both methods are supported in all prompts. The agent will use whichever is avail
 ## Templates
 
 Document templates:
-- [Proposal Template](docs/proposals/proposal-template.md)
-- [Spec Template](docs/specs/spec-template.md)
-- [Spec Extension Template](docs/specs/spec-extension-template.md)
-- [Standard Template](docs/standards/std-template.md)
+- [Proposal Template](decisions/proposals/proposal-template.md)
+- [Spec Template](decisions/specs/spec-template.md)
+- [Spec Extension Template](decisions/specs/spec-extension-template.md)
+- [Standard Template](decisions/standards/std-template.md)
 
 Scaffolding templates (used by `/bootstrap`):
 - [templates/](templates/)

@@ -7,7 +7,7 @@ Argument: $ARGUMENTS (Spec identifier, e.g., "SPEC-0001" or path to spec file)
 ## Overview
 
 The bootstrap process:
-1. Reads a spec from `docs/specs/`
+1. Reads a spec from `decisions/specs/`
 2. Finds any extensions for that spec (`SPEC-NNNN-EXT-*.md`)
 3. For each implementing repository listed in the spec:
    - Creates the repo if it doesn't exist (internal visibility)
@@ -50,30 +50,30 @@ When processing templates, replace these placeholders:
 
 ### Step 1: Validate and Read the Spec
 
-1. Find the spec file in `docs/specs/` matching the user's input
+1. Find the spec file in `decisions/specs/` matching the user's input
 2. **Validate the spec exists:**
-   - Search for the file matching `docs/specs/SPEC-NNNN-*.md`
+   - Search for the file matching `decisions/specs/SPEC-NNNN-*.md`
    - If NOT found, report: "Specification {SPEC-NNNN} does not exist. Available specs are: {list}. Please specify a valid spec identifier."
    - If found, continue
 3. Parse the YAML frontmatter to extract:
    - `implements` - The Proposal reference
    - `implementations` - List of repos with their status
 4. **Validate the referenced Proposal exists:**
-   - Check that the `implements` Proposal (PROP-NNNN) exists in `docs/proposals/`
+   - Check that the `implements` Proposal (PROP-NNNN) exists in `decisions/proposals/`
    - If NOT found, warn: "Warning: This spec references {PROP-NNNN} which does not exist. Consider creating the proposal first."
 5. Parse the spec body to extract:
    - Title and Overview
 
 ### Step 2: Find Extensions
 
-Look for extension files matching `SPEC-{ID}-EXT-*.md` in `docs/specs/`:
+Look for extension files matching `SPEC-{ID}-EXT-*.md` in `decisions/specs/`:
 - Parse each extension's frontmatter (`extends`, `implements`)
 - Note which add requirements and which override
 
 ### Step 3: Identify Applicable Standards
 
 1. Read the spec for any standard references
-2. Check `docs/standards/` for standards that apply based on:
+2. Check `decisions/standards/` for standards that apply based on:
    - The `applies-to` field in standard frontmatter
    - Explicit references in the spec or extensions
 3. For each applicable standard, extract the `gitignore` field from frontmatter (if present)
@@ -231,7 +231,7 @@ After completing all operations, report:
 
 **You:** I'll bootstrap the implementing repositories for SPEC-0001. Let me read the spec first...
 
-*[Reads docs/specs/SPEC-0001-runner-infrastructure.md]*
+*[Reads decisions/specs/SPEC-0001-runner-infrastructure.md]*
 
 Found spec: **SPEC-0001: Runner Infrastructure**
 

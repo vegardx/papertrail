@@ -16,7 +16,7 @@ Since this is still part of the original "Runner Infrastructure" initiative (PRO
 
 **Copilot:** I'll help you create an extension for SPEC-0001. Let me read the base spec first...
 
-*[Reads docs/specs/SPEC-0001-runner-infrastructure.md]*
+*[Reads decisions/specs/SPEC-0001-runner-infrastructure.md]*
 
 **SPEC-0001: Runner Infrastructure** implements PROP-0001 and has these requirements:
 1. Auto-Scaling
@@ -136,13 +136,13 @@ Statement: *The system SHALL provide a shared cache for runner dependencies to r
 - **Overridden Requirements:** 0
 
 ### File to Create
-`docs/specs/SPEC-0001-EXT-0001-caching-layer.md`
+`decisions/specs/SPEC-0001-EXT-0001-caching-layer.md`
 
 **Do you want me to create this extension?**
 
 **User:** Yes
 
-**Copilot:** Created `docs/specs/SPEC-0001-EXT-0001-caching-layer.md`
+**Copilot:** Created `decisions/specs/SPEC-0001-EXT-0001-caching-layer.md`
 
 ---
 
