@@ -2,53 +2,6 @@
 
 A documentation repository for Proposals, technical specifications, and engineering standards—with automated workflows to bootstrap implementing repositories.
 
-## Structure
-
-```
-├── docs/
-│   ├── proposals/       # Proposals (PROP)
-│   │   └── PROP-NNNN-*.md
-│   ├── specs/           # Technical Specifications
-│   │   ├── SPEC-NNNN-*.md
-│   │   └── SPEC-NNNN-EXT-NNNN-*.md  # Extensions
-│   └── standards/       # Engineering Standards
-│       └── STD-NNNN-*.md
-├── templates/           # Scaffolding templates for bootstrapped repos
-│   ├── README.md.template
-│   ├── gitignore.template
-│   ├── mcp.json.template
-│   ├── copilot-instructions.md.template
-│   ├── plan.prompt.md.template
-│   └── implement.prompt.md.template
-├── examples/            # Full conversation examples
-│   ├── 01-basic-flow/
-│   ├── 02-extension-same-proposal/
-│   ├── 03-extension-new-feature/
-│   ├── 04-extension-override/
-│   └── 05-microservices-dependencies/
-└── .github/prompts/     # Copilot slash commands
-    ├── propose.prompt.md
-    ├── spec.prompt.md
-    ├── std.prompt.md
-    ├── extend.prompt.md
-    ├── bootstrap.prompt.md
-    ├── review.prompt.md
-    ├── validate.prompt.md
-    └── status.prompt.md
-```
-
-## Document Hierarchy
-
-Papertrail uses four document types that work together:
-
-**Proposals** (`PROP-NNNN`) explore problems and propose solutions. They capture the "what" and "why" before implementation details. One proposal can lead to multiple specs.
-
-**Specs** (`SPEC-NNNN`) define concrete requirements using SHALL/MUST statements with GIVEN/WHEN/THEN scenarios. Each spec implements one proposal and lists the repositories that will implement it.
-
-**Extensions** (`SPEC-NNNN-EXT-MMMM`) add or override requirements in a base spec. They can implement the same proposal (adding forgotten scope) or a different proposal (new feature building on existing infrastructure).
-
-**Standards** (`STD-NNNN`) define reusable conventions—how to build, not what to build. They cover things like language versions, testing requirements, and API patterns. Standards are applied during bootstrap and enforced during implementation.
-
 ## Whaaaat?
 
 So you want to build something. Here's how Papertrail turns ideas into running code.
@@ -164,6 +117,53 @@ Check out the [examples/](examples/) directory for full conversation transcripts
 - [Extension (override)](examples/04-extension-override/): Changing requirements
 - [Microservices](examples/05-microservices-dependencies/): Multi-service system with API dependencies
 
+## Structure
+
+```
+├── docs/
+│   ├── proposals/       # Proposals (PROP)
+│   │   └── PROP-NNNN-*.md
+│   ├── specs/           # Technical Specifications
+│   │   ├── SPEC-NNNN-*.md
+│   │   └── SPEC-NNNN-EXT-NNNN-*.md  # Extensions
+│   └── standards/       # Engineering Standards
+│       └── STD-NNNN-*.md
+├── templates/           # Scaffolding templates for bootstrapped repos
+│   ├── README.md.template
+│   ├── gitignore.template
+│   ├── mcp.json.template
+│   ├── copilot-instructions.md.template
+│   ├── plan.prompt.md.template
+│   └── implement.prompt.md.template
+├── examples/            # Full conversation examples
+│   ├── 01-basic-flow/
+│   ├── 02-extension-same-proposal/
+│   ├── 03-extension-new-feature/
+│   ├── 04-extension-override/
+│   └── 05-microservices-dependencies/
+└── .github/prompts/     # Copilot slash commands
+    ├── propose.prompt.md
+    ├── spec.prompt.md
+    ├── std.prompt.md
+    ├── extend.prompt.md
+    ├── bootstrap.prompt.md
+    ├── review.prompt.md
+    ├── validate.prompt.md
+    └── status.prompt.md
+```
+
+## Document Hierarchy
+
+Papertrail uses four document types that work together:
+
+**Proposals** (`PROP-NNNN`) explore problems and propose solutions. They capture the "what" and "why" before implementation details. One proposal can lead to multiple specs.
+
+**Specs** (`SPEC-NNNN`) define concrete requirements using SHALL/MUST statements with GIVEN/WHEN/THEN scenarios. Each spec implements one proposal and lists the repositories that will implement it.
+
+**Extensions** (`SPEC-NNNN-EXT-MMMM`) add or override requirements in a base spec. They can implement the same proposal (adding forgotten scope) or a different proposal (new feature building on existing infrastructure).
+
+**Standards** (`STD-NNNN`) define reusable conventions—how to build, not what to build. They cover things like language versions, testing requirements, and API patterns. Standards are applied during bootstrap and enforced during implementation.
+
 ## Copilot Commands
 
 ### In This Repository (papertrail)
@@ -248,7 +248,7 @@ Works through issues systematically:
 1. **Finds the next issue** where all dependencies are resolved
 2. **Creates a branch** (`implement/issue-{number}-{description}`)
 3. **Guides implementation** following spec requirements and standards
-4. **Pushes changes** via GitHub MCP
+4. **Pushes changes** via GitHub MCP or Git/GitHub CLI
 5. **Creates a draft PR** with detailed description and validation checklist
 
 ### 5. `/review` (in papertrail)
@@ -347,13 +347,26 @@ A workspace for agents to create:
 
 ## Prerequisites
 
-- VS Code with GitHub Copilot extension
-- GitHub Copilot subscription (for MCP server authentication)
+- VS Code with GitHub Copilot extension, or Claude Code
+- GitHub CLI (`gh`) installed and authenticated
 - Appropriate GitHub permissions for repository creation
 
 ## Setup
 
-The repository includes `.mcp.json` configured with the [GitHub MCP server](https://github.com/github/github-mcp-server). The MCP server URL can be customized via the `COPILOT_MCP_URL` environment variable (defaults to `https://copilot-api.dnb.ghe.com/mcp`).
+### GitHub Operations
+
+The prompts interact with GitHub in two ways:
+
+1. **GitHub MCP Server** (recommended for VS Code with Copilot)
+   - The repository includes `.mcp.json` configured with the [GitHub MCP server](https://github.com/github/github-mcp-server)
+   - URL can be customized via `COPILOT_MCP_URL` environment variable (defaults to `https://copilot-api.dnb.ghe.com/mcp`)
+
+2. **GitHub CLI** (recommended for Claude Code)
+   - Install: https://cli.github.com/
+   - Authenticate: `gh auth login`
+   - Commands used: `gh repo create`, `gh issue list`, `gh pr create`, etc.
+
+Both methods are supported in all prompts. The agent will use whichever is available.
 
 ## Templates
 

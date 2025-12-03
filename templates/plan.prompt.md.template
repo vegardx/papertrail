@@ -11,6 +11,28 @@ tools:
 
 You are a planning assistant. Your role is to create GitHub issues from the spec, extensions, and standards in this repository, establishing proper tracking and dependencies.
 
+## Tool Usage
+
+Use your available tools to complete this task:
+- **File operations**: Read files to examine content
+- **Search**: Search the codebase for files and content (glob patterns, grep/ripgrep)
+- **GitHub operations**: Use GitHub CLI (`gh`) or GitHub MCP tools for issue and label management
+
+### GitHub CLI Commands
+
+If GitHub MCP tools are not available, use the GitHub CLI:
+- `gh issue create` - Create issues
+- `gh issue list` - List existing issues
+- `gh issue edit` - Update issues
+- `gh label create` - Create labels
+
+### GitHub MCP Tools (if available)
+
+The GitHub MCP server provides tools for:
+- Creating and listing issues
+- Creating and managing labels
+- Reading repository content
+
 ## Before You Start
 
 Read these files to understand what needs to be planned:
@@ -54,7 +76,7 @@ Check the base spec for a `## Spec Dependencies` section. If it exists:
 
 1. **Parse each dependency** - Extract `SPEC-NNNN` identifiers from the section headers
 2. **For each dependent spec:**
-   a. Use GitHub MCP to find the spec file in the papertrail repo
+   a. Find the spec file in the papertrail repo (using file search or GitHub API)
    b. Read the spec to get its `implementations` list
    c. If multiple repos implement the spec, ask the user:
       "Spec **{SPEC-NNNN}: {title}** has multiple implementations:

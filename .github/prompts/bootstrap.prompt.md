@@ -127,16 +127,22 @@ After user confirms, for each repo in the spec's `implementations` list:
 
 #### 5a. Check if Repo Exists
 
-Use GitHub MCP to check if the repository exists.
+Check if the repository exists using GitHub MCP or GitHub CLI:
+- **GitHub CLI:** `gh repo view {org/repo}`
+- **GitHub MCP:** Use the repository view/get tool
 
 #### 5b. If Repo Does NOT Exist
 
-1. **Create the repository** using GitHub MCP:
+1. **Create the repository** using GitHub MCP or GitHub CLI:
+   - **GitHub CLI:** `gh repo create {org/repo} --internal --description "Implements {SPEC_ID}: {SPEC_TITLE}"`
+   - **GitHub MCP:** Use the create repository tool
    - Visibility: internal
    - Description: "Implements {SPEC_ID}: {SPEC_TITLE}"
    - Initialize with README: false (we'll create our own)
 
-2. **Scaffold the repository** by creating these files using `push_files`:
+2. **Scaffold the repository** by creating these files:
+   - **Using Git/GitHub CLI:** Clone the repo, create files locally, commit and push
+   - **Using GitHub MCP:** Use `push_files` to create all files in a single commit
 
    **README.md** (from `templates/README.md.template`):
    - Replace all template variables
@@ -246,7 +252,7 @@ Applicable standards:
 
 Let me check if the repository exists...
 
-*[Uses GitHub MCP to check]*
+*[Checks if repo exists using gh repo view or GitHub MCP]*
 
 Repository `github/runner-infra` does not exist. I'll create it now.
 

@@ -118,22 +118,28 @@ After user confirms, for each repo in the spec's `implementations` list:
 
 #### 5a. Check if Repo Exists
 
-Use `gh repo view {org/repo}` to check if the repository exists.
+Check if the repository exists using GitHub CLI or GitHub MCP:
+- **GitHub CLI:** `gh repo view {org/repo}`
+- **GitHub MCP:** Use the repository view/get tool
 
 #### 5b. If Repo Does NOT Exist
 
-1. **Create the repository** using GitHub CLI:
+1. **Create the repository** using GitHub CLI or GitHub MCP:
    ```bash
    gh repo create {org/repo} --internal --description "Implements {SPEC_ID}: {SPEC_TITLE}"
    ```
 
-2. **Clone and scaffold the repository**:
-   ```bash
-   gh repo clone {org/repo}
-   cd {repo}
-   ```
+2. **Scaffold the repository** by creating these files:
+   - **Using Git/GitHub CLI:** Clone the repo, create files locally, commit and push
+     ```bash
+     gh repo clone {org/repo}
+     cd {repo}
+     # Create files...
+     git add . && git commit -m "chore: bootstrap from {SPEC_ID}" && git push
+     ```
+   - **Using GitHub MCP:** Use `push_files` to create all files in a single commit
 
-3. **Create all scaffold files** using the templates:
+3. **Files to create** using the templates:
 
    **README.md** (from `templates/README.md.template`):
    - Replace all template variables
@@ -165,14 +171,7 @@ Use `gh repo view {org/repo}` to check if the repository exists.
    **.github/standards/{STD-NNNN-name}.md** (for each applicable standard):
    - Copy each standard file
 
-4. **Commit and push**:
-   ```bash
-   git add .
-   git commit -m "chore: bootstrap repository from {SPEC_ID}"
-   git push
-   ```
-
-5. **Report success** and instruct user to run `/plan` in the new repo
+4. **Report success** and instruct user to run `/plan` in the new repo
 
 #### 5c. If Repo ALREADY Exists
 
@@ -250,7 +249,7 @@ Applicable standards:
 
 Let me check if the repository exists...
 
-*[Uses gh repo view]*
+*[Checks if repo exists using gh repo view or GitHub MCP]*
 
 Repository `github/runner-infra` does not exist. I'll create it now.
 
