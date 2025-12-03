@@ -32,7 +32,7 @@ All templates are in the `templates/` directory:
 - `README.md.template`
 - `mcp.json.template`
 - `gitignore.template`
-- `copilot-instructions.md.template`
+- `AGENTS.md.template`
 - `implement.prompt.md.template`
 - `plan.prompt.md.template`
 
@@ -107,9 +107,9 @@ Before making any changes, present a summary of what will be done:
 
 ### Files to Scaffold (for new repos)
 - README.md
+- AGENTS.md
 - .gitignore
 - .vscode/mcp.json
-- .github/copilot-instructions.md
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md
@@ -149,8 +149,9 @@ Use GitHub MCP to check if the repository exists.
    **.vscode/mcp.json** (from `templates/mcp.json.template`):
    - Copy as-is (no variables to replace)
 
-   **.github/copilot-instructions.md** (from `templates/copilot-instructions.md.template`):
+   **AGENTS.md** (from `templates/AGENTS.md.template`):
    - Replace template variables
+   - Place in repository root
 
    **.github/prompts/implement.prompt.md** (from `templates/implement.prompt.md.template`):
    - Replace template variables
@@ -200,9 +201,9 @@ After completing all operations, report:
 
 ### Files Scaffolded
 - README.md
+- AGENTS.md
 - .gitignore
 - .vscode/mcp.json
-- .github/copilot-instructions.md
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md
@@ -258,9 +259,9 @@ Repository `github/runner-infra` does not exist. I'll create it now.
 
 ### Files Scaffolded
 - README.md
+- AGENTS.md
 - .gitignore
 - .vscode/mcp.json
-- .github/copilot-instructions.md
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md

@@ -232,9 +232,9 @@ Cloning dependency into `.contexts/`:
 
 ### Files Scaffolded
 - README.md
+- AGENTS.md
 - .gitignore (includes `.contexts/`)
 - .vscode/mcp.json
-- .github/copilot-instructions.md
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md

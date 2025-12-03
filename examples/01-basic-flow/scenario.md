@@ -334,9 +334,9 @@ Scaffolding files...
 
 ### Files Scaffolded
 - README.md
+- AGENTS.md
 - .gitignore
 - .vscode/mcp.json
-- .github/copilot-instructions.md
 - .github/prompts/implement.prompt.md
 - .github/prompts/plan.prompt.md
 - .github/spec/spec.md

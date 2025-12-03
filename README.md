@@ -203,9 +203,9 @@ Creates and scaffolds implementing repositories:
 2. **Creates repositories** (internal visibility) if they don't exist
 3. **Scaffolds each repo** with:
    - `README.md` - Links to spec and explains the project
+   - `AGENTS.md` - Instructions for AI agents to read spec/standards
    - `.gitignore` - Ignores `.contexts/`, `.plans/`, and standard-specific patterns
    - `.vscode/mcp.json` - GitHub MCP server configuration
-   - `.github/copilot-instructions.md` - Instructions to read spec/standards
    - `.github/prompts/plan.prompt.md` - The `/plan` command
    - `.github/prompts/implement.prompt.md` - The `/implement` command
    - `.github/spec/spec.md` - Copy of the specification
