@@ -77,6 +77,19 @@ Use `scratchpad/agents/` freely for any documents you create during implementati
 
 ## Committing Changes
 
+### Update CHANGELOG.md
+
+Before committing, check if the changes should be documented in CHANGELOG.md:
+
+- **feat:** Add to "Added" section
+- **fix:** Add to "Fixed" section  
+- **refactor!:** or any breaking change: Add to "Breaking Changes" section
+- **deprecation:** Add to "Deprecated" section
+- **removal:** Add to "Removed" section
+- **security:** Add to "Security" section
+
+If CHANGELOG.md doesn't have an "Unreleased" section, add one at the top. Group changes under the appropriate heading.
+
 ### Create a Commit Plan
 
 Present the commit plan and ask the user if they want to proceed. Never commit automatically without confirmation.
