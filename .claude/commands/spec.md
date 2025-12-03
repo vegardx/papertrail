@@ -95,14 +95,129 @@ Ask clarifying questions:
    - "Which repository or repositories will implement this spec?"
    - "Are there multiple repos involved (e.g., frontend + backend)?"
 
-### Step 4: Gather Requirements
+### Step 4: Technology Choices
 
-Guide the user through defining requirements, asking ONE question at a time:
+Guide the user through technology selection. Present options and let them choose. Ask ONE question at a time.
+
+1. **Language & Runtime**
+   - "What programming language will this be built with?"
+   - Present relevant options based on project type:
+     - For web/docs: "A) TypeScript, B) JavaScript, C) Other"
+     - For backend: "A) Go, B) TypeScript/Node.js, C) Python, D) Other"
+     - For CLI: "A) Go, B) Rust, C) Python, D) Other"
+   - "Which version/runtime?" (e.g., "Node.js 20 LTS", "Go 1.21")
+
+2. **Frameworks**
+   - Based on language choice, present framework options:
+     - For docs site: "A) Docusaurus 3.x, B) MkDocs, C) Hugo, D) Other"
+     - For backend API: "A) Express, B) Fastify, C) Hono, D) Other"
+     - For CLI: "A) Cobra, B) Commander, C) Click, D) Other"
+   - "Which build tool?" (e.g., "npm", "pnpm", "Make")
+
+3. **Key Libraries**
+   - Based on requirements, suggest relevant libraries:
+     - "For search, would you like: A) Built-in search, B) Algolia, C) Other?"
+     - "For styling: A) Default/CSS Modules, B) Tailwind, C) Other?"
+   - Ask about each major capability mentioned in the proposal
+
+4. **File Structure**
+   - Based on framework choice, propose a file structure
+   - "Here's the typical structure for {framework}. Does this work, or do you want to modify it?"
+   - Show the structure and let user confirm or adjust
+
+Example interaction:
+```
+**What programming language will this be built with?**
+A) TypeScript (recommended for Docusaurus)
+B) JavaScript
+C) Other (specify)
+
+> A
+
+**Which Node.js version?**
+A) Node.js 20 LTS (recommended, active LTS)
+B) Node.js 22 (current)
+C) Other (specify)
+
+> A
+
+**For documentation, which framework?**
+A) Docusaurus 3.x (React-based, recommended - existing expertise in org)
+B) MkDocs with Material theme (Python-based)
+C) Hugo (Go-based, fast builds)
+D) Other (specify)
+
+> A
+
+**For search functionality:**
+A) Docusaurus built-in search (local, no external dependencies)
+B) Algolia DocSearch (faster, better UX, requires account setup)
+C) None initially (add later)
+
+> B
+
+Based on Docusaurus 3.x with TypeScript, here's the recommended file structure:
+
+```
+├── docs/                    # Documentation content (Markdown)
+├── src/
+│   ├── components/          # Custom React components
+│   ├── css/                 # Custom styles
+│   └── pages/               # Custom pages (landing, etc.)
+├── static/                  # Static assets (images, files)
+├── docusaurus.config.ts     # Main configuration
+├── sidebars.ts              # Sidebar navigation
+├── package.json
+└── tsconfig.json
+```
+
+**Does this structure work for you?** (yes/modify)
+```
+
+### Step 5: Gather Requirements
+
+Guide the user through defining requirements, asking ONE question at a time. Requirements must be **detailed and specific** - an agent should be able to implement them without asking for clarification.
 
 1. **Core Requirements** (required)
    - "What are the key behaviors or capabilities this must provide?"
-   - For each requirement, help define clear SHALL/MUST statements
-   - For each requirement, define at least one GIVEN/WHEN/THEN scenario
+   - For each requirement:
+     - Define clear SHALL/MUST statements
+     - Specify **configuration details** (what config files, what settings)
+     - Specify **files to create/modify** with exact paths
+     - Define **measurable behavior** (timeouts, sizes, error handling)
+     - Define at least one GIVEN/WHEN/THEN scenario with **verifiable outcomes**
+
+   Example of a **detailed requirement**:
+   ```markdown
+   ### Requirement: Static Site Generation
+
+   The documentation site SHALL use Docusaurus 3.x to generate static HTML, CSS, and JavaScript.
+
+   **Configuration:**
+   * `docusaurus.config.ts` SHALL specify `url` as the GitHub Pages URL
+   * `docusaurus.config.ts` SHALL set `trailingSlash: true` for GitHub Pages compatibility
+   * `docusaurus.config.ts` SHALL configure `organizationName` and `projectName`
+
+   **Behavior:**
+   * Build output SHALL be generated in `build/` directory
+   * Build output SHALL NOT exceed 1GB (GitHub Pages limit)
+   * Build SHALL complete in under 5 minutes
+
+   **Files:**
+   | Action | Path | Purpose |
+   |--------|------|---------|
+   | Create | `docusaurus.config.ts` | Main site configuration |
+   | Create | `sidebars.ts` | Navigation structure |
+   | Create | `package.json` | Dependencies and scripts |
+   | Create | `tsconfig.json` | TypeScript configuration |
+
+   #### Scenario: Fresh build
+   **GIVEN** a fresh clone of the repository
+   **WHEN** the developer runs `npm install && npm run build`
+   **THEN** static files are generated in `build/` directory
+   **AND** the build completes without errors
+   **AND** `build/index.html` exists and contains the site title
+   ```
 
 2. **Interfaces** (if applicable)
    - "What APIs, interfaces, or contracts must implementations adhere to?"
